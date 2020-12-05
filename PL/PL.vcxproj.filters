@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Task.h">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2e5145e2-2c5e-4ce6-b8dd-6ec595e0e719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression">
+      <UniqueIdentifier>{242dd9a5-a623-4ce1-86d5-6d404b512668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Zstandard">
+      <UniqueIdentifier>{581f976d-5654-4cc9-a702-b0f539230e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Zstandard\lib">
+      <UniqueIdentifier>{b76caedd-126b-4885-8b53-dc87730dd42e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Zstandard\lib\win">
+      <UniqueIdentifier>{2db298d5-ed3a-4753-b8ed-d0754fd28eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Snappy">
+      <UniqueIdentifier>{72a510e9-75d4-4907-af57-7e7e740e0c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Snappy\lib">
+      <UniqueIdentifier>{eabae1c1-1e52-4246-9f22-21dad28cbe94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Compression\Snappy\lib\win">
+      <UniqueIdentifier>{aba499ab-7c1a-444d-96e0-1ef6251501a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers">
+      <UniqueIdentifier>{a8612e9e-4a8e-4eca-82e7-486dac6fb749}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\Compression\Zstandard\lib\win\libzstd.dll">
+      <Filter>Core\Compression\Zstandard\lib\win</Filter>
+    </None>
+    <None Include="Core\Compression\Snappy\lib\win\snappy64.dll">
+      <Filter>Core\Compression\Snappy\lib\win</Filter>
+    </None>
+    <None Include="Core\Compression\Snappy\lib\win\snappy32.dll">
+      <Filter>Core\Compression\Snappy\lib\win</Filter>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Controller.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h" />
+    <ClInclude Include="User.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="UserList.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskList.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

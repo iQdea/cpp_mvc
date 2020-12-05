@@ -1,0 +1,62 @@
+#include "DAL.h"
+#include "BLL.h"
+#include <iostream>
+#include "UserList.h"
+#include "User.h"
+#include "Task.h"
+#include "Context.h"
+
+// https://github.com/Microsoft/vcpkg
+
+using namespace std;
+using namespace DAL;
+using namespace BLL;
+
+const string employerName[7] = { 
+	"Steve Mathews", "Mark Smith", "Ann Philip", "Julie Ponds", "Michael Lans", "Susan Boyle", 
+	"Sophie Cyrus" 
+};
+
+int main()
+{
+	mongocxx::instance instance{};
+	mongocxx::uri uri("mongodb+srv://qdea:qdea12345@cluster0.oeakp.mongodb.net/sprint?retryWrites=true&w=majority");
+	mongocxx::client client(uri);
+	mongocxx::database db = client["sprint"];
+
+	shared_ptr<SprintService> sprintService(new SprintService(db));
+
+	shared_ptr<Context> context(new Context(sprintService));
+	shared_ptr<Controllers::UserList> userListCtrl(new Controllers::UserList(context));
+	shared_ptr<Controllers::User> userCtrl(new Controllers::User(context));
+	shared_ptr<Controllers::Task> taskCtrl(new Controllers::Task(context));
+
+	try {
+		userListCtrl->getTeamLead();
+	}
+	catch (...) {
+		userListCtrl->addTeamLead();
+	}
+	
+	userCtrl->login(context->teamLead);
+	userListCtrl->getAssistantList();
+	if (context->teamLead->getAssistantCount() == 0) {
+		for (int i = 0; i < 7; i++) {
+			userListCtrl->addEmployer(employerName[i]);
+			userCtrl->login(context->employer);
+			userCtrl->setManager(context->teamLead);
+			userCtrl->login(context->teamLead);
+		}
+	}
+
+	//taskCtrl->add("Task 1");
+	//userCtrl->logout();
+
+	//shared_ptr<Entities::Task> taskEntity(new Entities::Task(db, "", "Task 1"));
+	//taskEntity->create();
+	//cout << taskEntity->getId();
+	//taskEntity->setTitle("Task 2");
+	//taskEntity->update();
+	// taskEntity->remove();
+	return 0;
+}

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{0264e922-0694-49b5-8cd6-f8e6d8637de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Infrastructure">
+      <UniqueIdentifier>{56f59576-ddbe-4067-8e7d-a1c989d159de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Task.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DAL.h" />
+    <ClInclude Include="Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskList.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityList.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="Database.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskPart.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskComment.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskStatus.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskAssigned.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Employer.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="TeamList.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EmployerList.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Task.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\PL\packages.config" />
+  </ItemGroup>
+</Project>
