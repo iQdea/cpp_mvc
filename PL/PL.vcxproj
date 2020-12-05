@@ -88,7 +88,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ivano\source\repos\Sprint\DAL;C:\Users\ivano\source\repos\Sprint\BLL;C:\Users\ivano\source\repos\Sprint;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\DAL;C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\BLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ivano\source\repos\Sprint\DAL;C:\Users\ivano\source\repos\Sprint\BLL;C:\Users\ivano\source\repos\Sprint;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\DAL;C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\BLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ivano\source\repos\Sprint\DAL;C:\Users\ivano\source\repos\Sprint\BLL;C:\Users\ivano\source\repos\Sprint;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\DAL;C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\BLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\ivano\source\repos\Sprint\DAL;C:\Users\ivano\source\repos\Sprint\BLL;C:\Users\ivano\source\repos\Sprint;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\DAL;C:\Users\ivano_9h5vax1\source\repos\oop\Sprint\BLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,17 +156,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
-    <None Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
-    <None Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Context.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="TaskList.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <None Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <None Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
@@ -173,7 +174,7 @@
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.11.5\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.11.5\build\MongoDB.Driver.Core.targets'))" />
   </Target>

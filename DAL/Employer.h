@@ -33,7 +33,6 @@ namespace DAL {
 
 				coll.update_one(current(), doc.view());
 			}
-			void remove() override {}
 			string getName() {
 				return name;
 			}

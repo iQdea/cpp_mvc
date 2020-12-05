@@ -56,7 +56,4 @@
       <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\PL\packages.config" />
-  </ItemGroup>
 </Project>

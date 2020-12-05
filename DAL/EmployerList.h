@@ -35,6 +35,11 @@ namespace DAL {
 					<< "manager" << oid{ string_view{id} }
 				<< finalize));
 			}
+			void setFilterByName(string name) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "name" << name
+				<< finalize));
+			}
 		};
 	}
 }

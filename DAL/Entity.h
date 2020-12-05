@@ -11,7 +11,9 @@ namespace DAL {
 			}
 			virtual void create() = 0;
 			virtual void update() = 0;
-			virtual void remove() = 0;
+			virtual void remove() {
+				coll.delete_one(current());
+			}
 			string getId() {
 				return id;
 			}

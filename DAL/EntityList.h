@@ -7,6 +7,7 @@ namespace DAL {
 		public:
 			EntityList(database db) {
 				this->db = db;
+				filter = shared_ptr<value>(new value(document{}));
 			}
 
 			virtual shared_ptr<Entity> findOne() {

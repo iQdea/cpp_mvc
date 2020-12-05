@@ -52,11 +52,19 @@ int main()
 	//taskCtrl->add("Task 1");
 	//userCtrl->logout();
 
-	//shared_ptr<Entities::Task> taskEntity(new Entities::Task(db, "", "Task 1"));
+	shared_ptr<Entities::Task> taskEntity(new Entities::Task(db, "", "Task 3"));
 	//taskEntity->create();
 	//cout << taskEntity->getId();
 	//taskEntity->setTitle("Task 2");
 	//taskEntity->update();
-	// taskEntity->remove();
+	shared_ptr<Entities::EmployerList> employerList(new Entities::EmployerList(db));
+	//employerList->setFilterByName("Susan Boyle");
+	shared_ptr<Entities::Employer> employer = dynamic_pointer_cast<Entities::Employer>(employerList->findOne());
+	auto list = employerList->findAll();
+	//for (auto i : list) {
+	//	employer = dynamic_pointer_cast<Entities::Employer>(i);
+	//	employer->remove();
+	//}
+	//taskEntity->remove();
 	return 0;
 }
