@@ -13,29 +13,37 @@
     <ClInclude Include="Task.h">
       <Filter>DTO</Filter>
     </ClInclude>
-    <ClInclude Include="DTO.h">
-      <Filter>DTO</Filter>
-    </ClInclude>
-    <ClInclude Include="Employer.h">
-      <Filter>DTO</Filter>
-    </ClInclude>
-    <ClInclude Include="SprintService.h">
-      <Filter>Infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="EmployerList.h">
-      <Filter>DTO</Filter>
-    </ClInclude>
     <ClInclude Include="common.h">
       <Filter>DTO</Filter>
     </ClInclude>
     <ClInclude Include="Team.h">
       <Filter>DTO</Filter>
     </ClInclude>
+    <ClInclude Include="ISprintService.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="SprintService.h" />
+    <ClInclude Include="Employee.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskAssigned.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
+    <ClInclude Include="DTO.h" />
+    <ClInclude Include="IEntity.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="ITaskPart.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskStatus.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskComment.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Task.cpp">
-      <Filter>DTO</Filter>
-    </ClCompile>
     <ClCompile Include="Employer.cpp">
       <Filter>DTO</Filter>
     </ClCompile>

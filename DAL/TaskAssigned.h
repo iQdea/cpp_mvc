@@ -1,15 +1,13 @@
 #pragma once
-#include "TaskPart.h"
 
 namespace DAL {
 	namespace Entities {
-		class TaskAssigned : public TaskPart {
+		class TaskAssigned : public ITaskPart {
 		public:
-			TaskAssigned(database db, string id, string taskId, string modifiedBy, time_t modifiedAt, string assignedTo) : TaskPart(db, id, taskId, modifiedBy, modifiedAt) {
-				coll = db["task-assigned"];
+			TaskAssigned(string id, string taskId, string modifiedBy, time_t modifiedAt, string assignedTo) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
 				this->assignedTo = assignedTo;
 			}
-		private:
+
 			string assignedTo;
 		};
 	}

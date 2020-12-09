@@ -13,7 +13,7 @@ namespace Controllers {
 		}
 		void logout() {}
 		void setManager(shared_ptr<DTO::Employer> manager) {
-			context->sprintService->setManager(context->user->getId(), manager->getId());
+			//context->sprintService->setManager(context->user->getId(), manager->getId());
 		}
 	};
 }

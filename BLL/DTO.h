@@ -1,6 +1,8 @@
 #pragma once
 #include "Task.h"
+#include "ITaskPart.h"
+#include "TaskAssigned.h"
+#include "TaskStatus.h"
+#include "TaskComment.h"
 #include "Team.h"
-#include "Employer.h"
-
-// mongodb+srv://qdea:<password>@cluster0.oeakp.mongodb.net/<dbname>?retryWrites=true&w=majority
+#include "Employee.h"

@@ -1,23 +1,31 @@
 #pragma once
-#include "Entity.h"
+#include "IEntity.h"
 
 namespace DAL {
 	namespace Entities {		
-		class Task : public Entity {
+		class Task : public IEntity {
 		public:
-			Task(database db, string id, string title);
-			void create() override;
-			void update() override;
-			void remove() override;
-			void setTitle(string title);
-			string getTitle();
-		private:
+			Task(string title, string createdBy, time_t createdAt) : IEntity() {
+				this->title = title;
+				this->createdBy = createdBy;
+				this->createdAt = createdAt;
+			};
+			Task(string id, string title, string createdBy, time_t createdAt) : IEntity(id) {
+				this->title = title;
+				this->createdBy = createdBy;
+				this->createdAt = createdAt;
+			};
+
 			string title;
-			time_t created;
-			time_t modified;
-			string assignedTo;
-			StatusType status;
-			vector<string> modifiedBy;
+
+			string createdBy;
+			time_t createdAt;
+
+			time_t lastModifiedAt = 0;
+			string lastModifiedBy = "";
+
+			string assignedTo = "";
+			StatusType status = StatusType::Open;
 		};
 	}
 }

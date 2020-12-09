@@ -8,7 +8,12 @@
 #include <ctime>
 #include <stdexcept>
 namespace DAL {
+	using namespace std;
+	
+	enum class StatusType { Open = 0, Active, Resolved };
+
 	namespace Entities {
+		using basicDoc = bsoncxx::builder::basic::document;
 		using bsoncxx::builder::stream::close_array;
 		using bsoncxx::builder::stream::document;
 		using bsoncxx::builder::stream::finalize;
@@ -25,8 +30,8 @@ namespace DAL {
 		using bsoncxx::oid;
 		using mongocxx::database;
 		using mongocxx::collection;
-		using namespace std;
-		
-		enum class StatusType { Open = 0, Active, Resolved };
+	}
+	namespace Mongo {
+		using namespace Entities;
 	}
 }

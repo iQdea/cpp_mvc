@@ -1,15 +1,13 @@
 #pragma once
-#include "TaskPart.h"
 
 namespace DAL {
 	namespace Entities {		
-		class TaskStatus : public TaskPart {
+		class TaskStatus : public ITaskPart {
 		public:
-			TaskStatus(database db, string id, string taskId, string modifiedBy, time_t modifiedAt, StatusType status) : TaskPart(db, id, taskId, modifiedBy, modifiedAt) {
-				coll = db["task-status"];
+			TaskStatus(string id, string taskId, string modifiedBy, time_t modifiedAt, StatusType status) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
 				this->status = status;
 			}
-		private:
+
 			StatusType status;
 		};
 	}

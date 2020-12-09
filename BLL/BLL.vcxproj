@@ -22,15 +22,19 @@
     <ClInclude Include="BLL.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DTO.h" />
-    <ClInclude Include="Employer.h" />
-    <ClInclude Include="EmployerList.h" />
+    <ClInclude Include="Employee.h" />
+    <ClInclude Include="IEntity.h" />
+    <ClInclude Include="ISprintService.h" />
+    <ClInclude Include="ITaskPart.h" />
     <ClInclude Include="SprintService.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="TaskAssigned.h" />
+    <ClInclude Include="TaskComment.h" />
+    <ClInclude Include="TaskStatus.h" />
     <ClInclude Include="Team.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Employer.cpp" />
-    <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.vcxproj">

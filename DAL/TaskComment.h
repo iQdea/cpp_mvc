@@ -1,15 +1,13 @@
 #pragma once
-#include "TaskPart.h"
 
 namespace DAL {
 	namespace Entities {
-		class TaskComment : public TaskPart {
+		class TaskComment : public ITaskPart {
 		public:
-			TaskComment(database db, string id, string taskId, string modifiedBy, time_t modifiedAt, string comment) : TaskPart(db, id, taskId, modifiedBy, modifiedAt) {
-				coll = db["task-comment"];
+			TaskComment(string id, string taskId, string modifiedBy, time_t modifiedAt, string comment) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
 				this->comment = comment;
 			}
-		private:
+
 			string comment;
 		};
 	}

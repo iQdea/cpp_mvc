@@ -152,24 +152,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Connection.h" />
     <ClInclude Include="DAL.h" />
-    <ClInclude Include="Database.h" />
-    <ClInclude Include="Employer.h" />
-    <ClInclude Include="EmployerList.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityList.h" />
+    <ClInclude Include="Employee.h" />
+    <ClInclude Include="EmployeeRepository.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="IRepositoryList.h" />
+    <ClInclude Include="IEntity.h" />
+    <ClInclude Include="Repository.h" />
+    <ClInclude Include="IRepository.h" />
+    <ClInclude Include="RepositoryList.h" />
+    <ClInclude Include="TaskRepository.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="TaskAssigned.h" />
     <ClInclude Include="TaskComment.h" />
-    <ClInclude Include="TaskList.h" />
-    <ClInclude Include="TaskPart.h" />
+    <ClInclude Include="ITaskPart.h" />
     <ClInclude Include="TaskStatus.h" />
-    <ClInclude Include="TeamList.h" />
+    <ClInclude Include="TeamRepository.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="Connection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

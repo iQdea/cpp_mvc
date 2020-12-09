@@ -7,28 +7,19 @@
     <Filter Include="Infrastructure">
       <UniqueIdentifier>{56f59576-ddbe-4067-8e7d-a1c989d159de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mongo">
+      <UniqueIdentifier>{3f40a0e7-0dab-4d30-a2d1-ace15d2ed8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mongo\Repository">
+      <UniqueIdentifier>{23b99d1e-e1fe-40ef-ae19-d40be0f66ee4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="DAL.h" />
-    <ClInclude Include="Entity.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskList.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityList.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="common.h" />
-    <ClInclude Include="Database.h">
-      <Filter>Infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskPart.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="TaskComment.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -38,22 +29,46 @@
     <ClInclude Include="TaskAssigned.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Employer.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Team.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="TeamList.h">
+    <ClInclude Include="IEntity.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="IRepository.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.h">
+      <Filter>Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="RepositoryList.h">
+      <Filter>Mongo</Filter>
+    </ClInclude>
+    <ClInclude Include="IRepositoryList.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="EmployeeRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="Employee.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="EmployerList.h">
-      <Filter>Entities</Filter>
+    <ClInclude Include="TeamRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="ITaskPart.h">
+      <Filter>Infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Task.cpp">
-      <Filter>Entities</Filter>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Mongo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

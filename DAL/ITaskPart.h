@@ -1,16 +1,16 @@
 #pragma once
-#include "Entity.h"
+#include "IEntity.h"
 
 namespace DAL {
 	namespace Entities {
-		class TaskPart : public Entity {
+		class ITaskPart : public IEntity {
 		public:
-			TaskPart(database db, string id, string taskId, string modifiedBy, time_t modifiedAt) : Entity(db, id) {
+			ITaskPart(string id, string taskId, string modifiedBy, time_t modifiedAt) : IEntity(id) {
 				this->taskId = taskId;
 				this->modifiedBy = modifiedBy;
 				this->modifiedAt = modifiedAt;
 			}
-		protected:
+
 			string taskId;
 			time_t modifiedAt;
 			string modifiedBy;
