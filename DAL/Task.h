@@ -17,7 +17,6 @@ namespace DAL {
 			};
 
 			string title;
-
 			string createdBy;
 			time_t createdAt;
 

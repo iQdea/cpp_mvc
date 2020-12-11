@@ -67,6 +67,15 @@
     <ClInclude Include="Task.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="TaskAssigned.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskStatus.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskComment.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\Compression\Zstandard\lib\win\libzstd.dll">

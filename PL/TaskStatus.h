@@ -1,19 +1,17 @@
 #pragma once
 namespace ViewModel {
-	class Employee {
+	class TaskStatus {
 	public:
-		Employee(shared_ptr<DTO::Employee> item) {
+		TaskStatus(shared_ptr<DTO::TaskStatus> item) {
 			id = item->id;
-			name = item->name;
 		}
 
 		string str() {
 			stringstream ss;
-			ss << "employee:" << id << "<-" << name;
+			ss << "task-status:" << id;
 			return ss.str();
 		}
 
 		string id;
-		string name;
 	};
 }

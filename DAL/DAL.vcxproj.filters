@@ -74,6 +74,12 @@
     <ClInclude Include="TaskAssignedRepository.h">
       <Filter>Mongo\Repository</Filter>
     </ClInclude>
+    <ClInclude Include="TaskStatusRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskCommentRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connection.cpp">

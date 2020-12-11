@@ -28,6 +28,18 @@ namespace Controllers {
 				return "success:false";
 			}
 		}
+		string getAssistantList(int sessionNumber) {
+			string responce = "";
+			auto list = context->sprintService->getAssistantList(sessionNumber);
+			for (auto item : list) {
+				ViewModel::Employee employee(item);
+				if (responce != "") {
+					responce += "|";
+				}
+				responce += employee.str();
+			}
+			return responce;
+		}
 
 		void logout() {}
 	};

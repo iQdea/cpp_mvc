@@ -73,7 +73,7 @@ namespace BLL {
 		}
 
 		// Task assigned logic
-		shared_ptr<DTO::TaskAssigned> assignTo(int sesionNumber, string employeeId) override {
+		shared_ptr<DTO::TaskAssigned> assignTo(int sessionNumber, string employeeId) override {
 			auto repTask = repositoryList->task;
 			auto repSession = repositoryList->session;
 			auto repTaskAssigned = repositoryList->taskAssigned;
@@ -91,17 +91,59 @@ namespace BLL {
 			shared_ptr<Entities::TaskAssigned> taskAssigned(new Entities::TaskAssigned(task->id,modifiedBy,modifiedAt,assignedTo));
 			taskAssigned->setId(repTaskAssigned->create(taskAssigned));
 
-			return shared_ptr<DTO::TaskAssigned>();
+			task->assignedTo = assignedTo;
+			task->lastModifiedAt = modifiedAt;
+			task->lastModifiedBy = modifiedBy;
+			repTask->update(task);
+
+			return shared_ptr<DTO::TaskAssigned>(new DTO::TaskAssigned(taskAssigned));
 		}
 
 		// Task status logic
-		shared_ptr<DTO::TaskStatus> setStatus(StatusType status) override {
-			return shared_ptr<DTO::TaskStatus>();
+		shared_ptr<DTO::TaskStatus> setStatus(int sessionNumber, StatusType status) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+			auto repTaskStatus = repositoryList->taskStatus;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repTask->setFilterId(session->taskId);
+			auto task = repTask->findOne();
+
+			string modifiedBy = session->employeeId;
+			time_t modifiedAt = getTime();
+
+			shared_ptr<Entities::TaskStatus> taskStatus(new Entities::TaskStatus(task->id, modifiedBy, modifiedAt, status));
+			taskStatus->setId(repTaskStatus->create(taskStatus));
+
+			task->status = status;
+			task->lastModifiedAt = modifiedAt;
+			task->lastModifiedBy = modifiedBy;
+			repTask->update(task);
+
+			return shared_ptr<DTO::TaskStatus>(new DTO::TaskStatus(taskStatus));
 		}
 
 		// Task comment logic
-		shared_ptr<DTO::TaskComment> addComment(string comment) override {
-			return shared_ptr<DTO::TaskComment>();
+		shared_ptr<DTO::TaskComment> addComment(int sessionNumber, string comment) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+			auto repTaskComment = repositoryList->taskComment;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repTask->setFilterId(session->taskId);
+			auto task = repTask->findOne();
+
+			string modifiedBy = session->employeeId;
+			time_t modifiedAt = getTime();
+
+			shared_ptr<Entities::TaskComment> taskComment(new Entities::TaskComment(task->id, modifiedBy, modifiedAt, comment));
+			taskComment->setId(repTaskComment->create(taskComment));
+
+			return shared_ptr<DTO::TaskComment>(new DTO::TaskComment(taskComment));
 		}
 
 		// Employer logic
@@ -137,8 +179,20 @@ namespace BLL {
 
 			return shared_ptr<DTO::Employee>(new DTO::Employee(employee));
 		}
-		vector<shared_ptr<DTO::Employee>> getAssistantList() override {
+		virtual vector<shared_ptr<DTO::Employee>> getAssistantList(int sessionNumber) override {
+			auto repEmployee = repositoryList->employee;
+			auto repSession = repositoryList->session;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repEmployee->setFilterManagerId(session->employeeId);
+			auto list = repEmployee->findAll();
+
 			vector<shared_ptr<DTO::Employee>> result;
+			for (auto item : list) {
+				result.push_back(shared_ptr<DTO::Employee>(new DTO::Employee(item)));
+			}
 			return result;
 		}
 
@@ -165,6 +219,27 @@ namespace BLL {
 			}
 
 			return false;
+		}
+
+		virtual vector<shared_ptr<DTO::TaskComment>> getCommentList(int sessionNumber) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+			auto repTaskComment = repositoryList->taskComment;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repTask->setFilterId(session->taskId);
+			auto task = repTask->findOne();
+
+			repTaskComment->setFilterTaskId(task->id);
+			auto list = repTaskComment->findAll();
+
+			vector<shared_ptr<DTO::TaskComment>> result;
+			for (auto item : list) {
+				result.push_back(shared_ptr<DTO::TaskComment>(new DTO::TaskComment(item)));
+			}
+			return result;
 		}
 
 		void test1() {
@@ -252,6 +327,5 @@ namespace BLL {
 
 		shared_ptr<Mongo::RepositoryList> repositoryList;
 		//shared_ptr<EmployerList> employerList;
-		int sessionNumber = 0;
 	};
 }

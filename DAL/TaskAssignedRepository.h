@@ -23,15 +23,10 @@ namespace DAL {
 			}
 
 			void setData(basicDoc& doc, shared_ptr<TaskAssigned> item) override {
-				TaskAssigned taskAssigned = *item;
-				addField<string>(doc, "_id", taskAssigned.id);
-				addField<oid>(doc, "createdBy", getOid(item->createdBy));
-			}
-
-			void setFilterCreatedBy(string createdBy) {
-				filter = shared_ptr<value>(new value(document{}
-					<< "createdBy" << createdBy
-					<< finalize));
+				addField<oid>(doc, "_id", getOid(item->id));
+				addField<oid>(doc, "taskId", getOid(item->taskId));
+				addField<oid>(doc, "modifiedBy", getOid(item->modifiedBy));
+				addField<oid>(doc, "assignedTo", getOid(item->assignedTo));
 			}
 		};
 	}
