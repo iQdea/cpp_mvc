@@ -9,29 +9,29 @@ namespace Controllers {
 	public:
 		TaskController(shared_ptr<Context> context) : IController(context) {
 		}
-		string add(int sessionNumber, string title) {
-			ViewModel::Task response(context->sprintService->addTask(sessionNumber, title));
+		string add(string title) {
+			ViewModel::Task response(context->sprintService->addTask(title));
 			return response.str();
 		}
-		string select(int sessionNumber, string id) {
-			ViewModel::Task response(context->sprintService->selectTask(sessionNumber, id));
+		string select(string id) {
+			ViewModel::Task response(context->sprintService->selectTask(id));
 			return response.str();
 		}
-		string assignTo(int sessionNumber, string id) {
-			ViewModel::TaskAssigned response(context->sprintService->assignTo(sessionNumber, id));
+		string assignTo(string id) {
+			ViewModel::TaskAssigned response(context->sprintService->assignTo(id));
 			return response.str();
 		}
-		string setStatus(int sessionNumber, int status) {
-			ViewModel::TaskStatus response(context->sprintService->setStatus(sessionNumber, (StatusType) status));
+		string setStatus(int status) {
+			ViewModel::TaskStatus response(context->sprintService->setStatus((StatusType) status));
 			return response.str();
 		}
-		string addComment(int sessionNumber, string comment) {
-			ViewModel::TaskComment response(context->sprintService->addComment(sessionNumber, comment));
+		string addComment(string comment) {
+			ViewModel::TaskComment response(context->sprintService->addComment(comment));
 			return response.str();
 		}
-		string getCommentList(int sessionNumber) {
+		string getCommentList() {
 			string responce = "";
-			auto list = context->sprintService->getCommentList(sessionNumber);
+			auto list = context->sprintService->getCommentList();
 			for (auto item : list) {
 				ViewModel::TaskComment comment(item);
 				if (responce != "") {

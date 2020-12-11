@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <string>
 #include "SimplePocoHandler.h"
 
 std::string query(std::string message) {
@@ -43,14 +43,27 @@ std::string query(std::string message) {
 
 int main(void)
 {
+    std::string sessionId = "";
+
     while (true) {
         char str[256];
         std::cin.getline(str, 256);
         std::string req = str;
 
         if (req == "q") break;
+        if (sessionId != "") {
+            req = sessionId + "|" + req;
+        }
         std::string resp = query(req);
-        std::cout << resp << std::endl;
+        if (req == sessionId + "|" + "user|logout" && resp == "success:true") {
+            sessionId = "";
+        }
+        else if (req.substr(0, 11) == "user|login|" && resp.substr(0, 21) == "success:true|session:") {
+            sessionId = resp.substr(21);
+        }
+        else {
+            std::cout << resp << std::endl;
+        }
     }
     
     return 0;

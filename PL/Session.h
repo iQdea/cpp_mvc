@@ -3,15 +3,15 @@ namespace ViewModel {
 	class Session {
 	public:
 		Session(shared_ptr<DTO::Session> item) {
-			number = item->number;
+			id = item->id;
 		}
 
 		string str() {
 			stringstream ss;
-			ss << "session:" << number;
+			ss << "session:" << id;
 			return ss.str();
 		}
 
-		int number;
+		string id;
 	};
 }
