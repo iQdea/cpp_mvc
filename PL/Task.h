@@ -1,12 +1,12 @@
 #pragma once
-#include "Controller.h"
+#include "IController.h"
 #include <string>
 using namespace std;
 
 namespace Controllers {
-	class Task : public Controller {
+	class Task : public IController {
 	public:
-		Task(shared_ptr<Context> context) : Controller(context) {
+		Task(shared_ptr<Context> context) : IController(context) {
 		}
 		void add(string title) {}
 	};

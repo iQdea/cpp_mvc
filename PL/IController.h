@@ -4,9 +4,9 @@
 namespace Controllers {
 	using namespace BLL::DTO;
 
-	class Controller {
+	class IController {
 	public:
-		Controller(shared_ptr<Context> context) {
+		IController(shared_ptr<Context> context) {
 			this->context = context;
 		}
 	protected:

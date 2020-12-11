@@ -65,6 +65,12 @@
     <ClInclude Include="ITaskPart.h">
       <Filter>Infrastructure</Filter>
     </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connection.cpp">

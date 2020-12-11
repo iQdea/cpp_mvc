@@ -5,6 +5,7 @@
     <ClCompile Include="Task.h">
       <Filter>Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="SimplePocoHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Controllers">
@@ -34,20 +35,34 @@
     <Filter Include="Core\Compression\Snappy\lib\win">
       <UniqueIdentifier>{fc75c3ee-872c-4b12-880e-9bffae44c8f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>{ab25b566-76df-4b2e-a11f-bb0c4173d542}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="Context.h" />
-    <ClInclude Include="User.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="UserList.h">
       <Filter>Controllers</Filter>
     </ClInclude>
     <ClInclude Include="TaskList.h">
       <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplePocoHandler.h" />
+    <ClInclude Include="IController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerList.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="UserController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels.h" />
+    <ClInclude Include="Employee.h">
+      <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

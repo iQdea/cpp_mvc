@@ -42,6 +42,9 @@
     <ClInclude Include="TaskComment.h">
       <Filter>DTO</Filter>
     </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Employer.cpp">

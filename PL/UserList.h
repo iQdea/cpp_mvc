@@ -1,5 +1,5 @@
 #pragma once
-#include "Controller.h"
+#include "IController.h"
 #include <string>
 using namespace std;
 
@@ -9,9 +9,9 @@ using namespace std;
 */
 
 namespace Controllers {
-	class UserList : public Controller {
+	class UserList : public IController {
 	public:
-		UserList(shared_ptr<Context> context) : Controller(context) {
+		UserList(shared_ptr<Context> context) : IController(context) {
 		}
 		//void getTeamLead() {
 		//	context->teamLead = context->sprintService->getTeamLead();

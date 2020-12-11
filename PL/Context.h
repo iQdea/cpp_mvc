@@ -11,9 +11,9 @@ public:
 		this->sprintService = sprintService;
 	}
 
-	shared_ptr<DTO::Employer> teamLead;
-	shared_ptr<DTO::Employer> user;
-	shared_ptr<DTO::Employer> employer;
+	shared_ptr<DTO::Employee> teamLead;
+	shared_ptr<DTO::Employee> user;
+	shared_ptr<DTO::Employee> employer;
 	shared_ptr<DTO::Task> task;
 	shared_ptr<SprintService> sprintService;
 };

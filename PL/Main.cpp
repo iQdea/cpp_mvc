@@ -1,12 +1,16 @@
 #include "DAL.h"
 #include "BLL.h"
 #include <iostream>
-#include "UserList.h"
-#include "User.h"
-#include "Task.h"
+// #include "UserList.h"
+// #include "User.h"
+// #include "Task.h"
 #include "Context.h"
+#include "SimplePocoHandler.h"
+#include "ControllerList.h"
 
+// https://github.com/erlang/otp/releases/download/OTP-23.1.5/otp_win64_23.1.5.exe
 // https://github.com/Microsoft/vcpkg
+// https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.9/rabbitmq-server-windows-3.8.9.zip
 
 using namespace std;
 using namespace DAL;
@@ -23,47 +27,35 @@ int main()
 	shared_ptr<Mongo::RepositoryList> repositoryList(new Mongo::RepositoryList(url));
 
 	shared_ptr<SprintService> sprintService(new SprintService(repositoryList));
-	sprintService->test1();
+	shared_ptr<Context> context(new Context(sprintService));
+	shared_ptr<ControllerList> controllerList(new ControllerList(context));
+	// sprintService->test1();
 
-	//shared_ptr<Context> context(new Context(sprintService));
-	//shared_ptr<Controllers::UserList> userListCtrl(new Controllers::UserList(context));
-	//shared_ptr<Controllers::User> userCtrl(new Controllers::User(context));
-	//shared_ptr<Controllers::Task> taskCtrl(new Controllers::Task(context));
 
-	//try {
-	//	userListCtrl->getTeamLead();
-	//}
-	//catch (...) {
-	//	userListCtrl->addTeamLead();
-	//}
-	//
-	//userCtrl->login(context->teamLead);
-	//userListCtrl->getAssistantList();
-	//if (context->teamLead->getAssistantCount() == 0) {
-	//	for (int i = 0; i < 7; i++) {
-	//		userListCtrl->addEmployer(employerName[i]);
-	//		userCtrl->login(context->employer);
-	//		userCtrl->setManager(context->teamLead);
-	//		userCtrl->login(context->teamLead);
-	//	}
-	//}
+	SimplePocoHandler handler("192.168.0.95", 5672);
 
-	//taskCtrl->add("Task 1");
-	//userCtrl->logout();
+	AMQP::Connection connection(&handler, AMQP::Login("qdea", "qdea12345"), "/");
 
-	//shared_ptr<Entities::Task> taskEntity(new Entities::Task(db, "", "Task 3"));
-	//taskEntity->create();
-	//cout << taskEntity->getId();
-	//taskEntity->setTitle("Task 2");
-	//taskEntity->update();
-	//shared_ptr<Entities::EmployerList> employerList(new Entities::EmployerList(db));
-	//employerList->setFilterByName("Susan Boyle");
-	//shared_ptr<Entities::Employer> employer = dynamic_pointer_cast<Entities::Employer>(employerList->findOne());
-	//auto list = employerList->findAll();
-	//for (auto i : list) {
-	//	employer = dynamic_pointer_cast<Entities::Employer>(i);
-	//	employer->remove();
-	//}
-	//taskEntity->remove();
+	AMQP::Channel channel(&connection);
+	channel.setQos(1);
+	channel.declareQueue("rpc_queue");
+	channel.consume("").onReceived(
+		[&channel, &controllerList](const AMQP::Message& message,
+			uint64_t deliveryTag,
+			bool redelivered)
+		{
+			string request(message.body(), message.bodySize());
+			std::cout << " [x] Received " << request << std::endl;
+
+			std::string response = controllerList->route(request);
+			AMQP::Envelope env(response.c_str(), response.length());
+
+			channel.publish("", message.replyTo(), env);
+			channel.ack(deliveryTag);
+		});
+
+	std::cout << " [*] Waiting for messages. To exit press CTRL-C\n";
+	handler.loop();
+
 	return 0;
 }

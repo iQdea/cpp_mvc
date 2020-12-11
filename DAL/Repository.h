@@ -28,7 +28,7 @@ namespace DAL {
 				coll.delete_one(current(id));
 			}
 			virtual shared_ptr<T> findOne() {
-				auto result = coll.find_one(filter->view());
+				auto result = coll.find_one(filter->view(), options);
 				if (!result) {
 					throw invalid_argument("Entity was not found");
 				}
@@ -38,7 +38,7 @@ namespace DAL {
 				return getEntity(doc);
 			}
 			vector<shared_ptr<T>> findAll() override {
-				auto cursor = coll.find(filter->view());
+				auto cursor = coll.find(filter->view(), options);
 				vector<shared_ptr<T>> list;
 
 				for (view doc : cursor) {
@@ -57,6 +57,8 @@ namespace DAL {
 		protected:
 			collection coll;
 			shared_ptr<value> filter;
+			// shared_ptr<mongocxx::options::find> options;
+			mongocxx::options::find options{};
 
 			view_or_value current(shared_ptr<T> item) {
 				return document{} << "_id" << getOid(item->getId()) << finalize;

@@ -24,7 +24,7 @@ namespace DAL {
 				addField<oid>(doc, "leadId", getOid(item->leadId));
 			}
 
-			void setFilterByNumber(int number) {
+			void setFilterNumber(int number) {
 				filter = shared_ptr<value>(new value(document{} << "number" << number << finalize));
 			}
 		};

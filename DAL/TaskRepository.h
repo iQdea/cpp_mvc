@@ -16,8 +16,9 @@ namespace DAL {
 				string id = parseOid(doc, "_id");
 				string title = parseString(doc, "title");
 				string createdBy = parseOid(doc, "createdBy");
+				time_t createdAt = 0;
 
-				return shared_ptr<Task>(new Task(id, title, createdBy));
+				return shared_ptr<Task>(new Task(id, title, createdBy, createdAt));
 			}
 
 			void setData(basicDoc& doc, shared_ptr<Task> item) override {

@@ -8,7 +8,7 @@ namespace BLL {
 	//using namespace DAL::Entities;
 	using namespace std;
 
-	class SprintService : ISprintService {
+	class SprintService : public ISprintService {
 	public:
 		SprintService(shared_ptr<Mongo::RepositoryList> repositoryList) {
 			this->repositoryList = repositoryList;
@@ -41,27 +41,100 @@ namespace BLL {
 			}
 			return result;
 		}
-		virtual vector<shared_ptr<DTO::Task>> getTaskList() = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListModifiedBetween(time_t start, time_t end) = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListAssignedToAssistants() = 0;
+		vector<shared_ptr<DTO::Task>> getTaskList() override {
+			vector<shared_ptr<DTO::Task>> result;
+			return result;
+		}
+		vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) override {
+			vector<shared_ptr<DTO::Task>> result;
+			return result;
+		}
+		vector<shared_ptr<DTO::Task>> getTaskListModifiedBetween(time_t start, time_t end) override {
+			vector<shared_ptr<DTO::Task>> result;
+			return result;
+		}
+		vector<shared_ptr<DTO::Task>> getTaskListAssignedToAssistants() override {
+			vector<shared_ptr<DTO::Task>> result;
+			return result;
+		}
 
 		// Task assigned logic
-		virtual DTO::TaskAssigned assignTo(string employeeId) = 0;
+		shared_ptr<DTO::TaskAssigned> assignTo(string employeeId) override {
+			return shared_ptr<DTO::TaskAssigned>();
+		}
 
 		// Task status logic
-		virtual DTO::TaskStatus setStatus(StatusType status) = 0;
+		shared_ptr<DTO::TaskStatus> setStatus(StatusType status) override {
+			return shared_ptr<DTO::TaskStatus>();
+		}
 
 		// Task comment logic
-		virtual DTO::TaskComment addComment(string comment) = 0;
+		shared_ptr<DTO::TaskComment> addComment(string comment) override {
+			return shared_ptr<DTO::TaskComment>();
+		}
 
 		// Employer logic
-		virtual shared_ptr<DTO::Employee> login(string name) = 0;
-		virtual shared_ptr<DTO::Employee> addAssistant(string name) = 0;
-		virtual vector<shared_ptr<DTO::Employee>> getAssistantList() = 0;
+		shared_ptr<DTO::Session> login(string name) override {
+			auto repEmployee = repositoryList->employee;
+			auto repSession = repositoryList->session;
+
+			repEmployee->setFilterName(name);
+			auto employee = repEmployee->findOne();
+			
+			int sessionNumber = 1;
+			repSession->setSortNumberDesc();
+			try {
+				auto lastSession = repSession->findOne();
+				sessionNumber = lastSession->number + 1;
+			} catch (...) {}
+
+			shared_ptr<Entities::Session> session(new Entities::Session(sessionNumber, employee->id, ""));
+			session->setId(repSession->create(session));
+
+			return shared_ptr<DTO::Session>(new DTO::Session(session));
+		}
+		shared_ptr<DTO::Employee> addAssistant(int sessionNumber, string name) override {
+			auto repEmployee = repositoryList->employee;
+			auto repSession = repositoryList->session;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			string managerId = session->employeeId;
+			shared_ptr<Entities::Employee> employee(new Entities::Employee(name, managerId));
+			employee->setId(repEmployee->create(employee));
+
+			return shared_ptr<DTO::Employee>(new DTO::Employee(employee));
+		}
+		vector<shared_ptr<DTO::Employee>> getAssistantList() override {
+			vector<shared_ptr<DTO::Employee>> result;
+			return result;
+		}
 
 		// Employer manager logic
-		virtual void setManager(string managerId) = 0;
+		bool setManager(int sessionNumber, string employeeId) override {
+			auto repEmployee = repositoryList->employee;
+			auto repSession = repositoryList->session;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repEmployee->setFilterId(employeeId);
+			auto employee = repEmployee->findOne();
+
+			// ищем себя
+			repEmployee->setFilterId(session->employeeId);
+			auto manager = repEmployee->findOne();
+
+			if (employee->id != "" && manager->id != "") {
+				employee->managerId = manager->id;
+				repEmployee->update(employee);
+				
+				return true;
+			}
+
+			return false;
+		}
 
 		void test1() {
 			// добавить задачу
@@ -148,5 +221,6 @@ namespace BLL {
 
 		shared_ptr<Mongo::RepositoryList> repositoryList;
 		//shared_ptr<EmployerList> employerList;
+		int sessionNumber = 0;
 	};
 }

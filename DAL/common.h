@@ -27,6 +27,7 @@ namespace DAL {
 		using bsoncxx::stdx::string_view;
 		using bsoncxx::document::view_or_value;
 		using bsoncxx::document::view;
+		using bsoncxx::types::b_regex;
 		using bsoncxx::oid;
 		using mongocxx::database;
 		using mongocxx::collection;

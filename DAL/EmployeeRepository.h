@@ -1,6 +1,6 @@
 #pragma once
 #include "common.h"
-#include "Task.h"
+#include "Employee.h"
 #include "Connection.h"
 #include "Repository.h"
 
@@ -9,7 +9,7 @@ namespace DAL {
 		class EmployeeRepository : public Repository<Employee> {
 		public:
 			EmployeeRepository(database db) : Repository() {
-				coll = db["employee"];
+				coll = db["employer"];
 			}
 
 			shared_ptr<Employee> getEntity(view& doc) override {
@@ -25,13 +25,13 @@ namespace DAL {
 				addField<oid>(doc, "managerId", getOid(item->managerId));
 			}
 
-			void setFilterByManagerId(string id) {
+			void setFilterManagerId(string id) {
 				filter = shared_ptr<value>(new value(document{}
 					<< "managerId" << oid{ string_view{id} }
 				<< finalize));
 			}
 
-			void setFilterByName(string name) {
+			void setFilterName(string name) {
 				filter = shared_ptr<value>(new value(document{}
 					<< "name" << name
 					<< finalize));
