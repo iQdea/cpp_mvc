@@ -8,8 +8,8 @@ namespace BLL {
 	class ISprintService {
 	public:
 		// Task logic
-		virtual shared_ptr<DTO::Task> addTask(string title) = 0;
-		virtual shared_ptr<DTO::Task> selectTask(string id) = 0;
+		virtual shared_ptr<DTO::Task> addTask(int sessionNumber, string title) = 0;
+		virtual shared_ptr<DTO::Task> selectTask(int sessionNumber, string id) = 0;
 		virtual vector<shared_ptr<DTO::Task>> getUserTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) = 0;

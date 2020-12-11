@@ -1,13 +1,17 @@
 #pragma once
-#include "IController.h"
-#include <string>
-using namespace std;
-
-namespace Controllers {
-	class Task : public IController {
+namespace ViewModel {
+	class Task {
 	public:
-		Task(shared_ptr<Context> context) : IController(context) {
+		Task(shared_ptr<DTO::Task> item) {
+			id = item->id;
 		}
-		void add(string title) {}
+
+		string str() {
+			stringstream ss;
+			ss << "task:" << id;
+			return ss.str();
+		}
+
+		string id;
 	};
 }

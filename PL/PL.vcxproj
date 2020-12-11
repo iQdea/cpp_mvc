@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SimplePocoHandler.cpp" />
-    <ClCompile Include="Task.h" />
+    <ClCompile Include="TaskController.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.vcxproj">
@@ -163,6 +163,7 @@
     <ClInclude Include="IController.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SimplePocoHandler.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="TaskList.h" />
     <ClInclude Include="UserController.h" />
     <ClInclude Include="UserList.h" />

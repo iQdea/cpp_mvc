@@ -15,19 +15,33 @@ namespace BLL {
 			//employerList = shared_ptr<EmployerList>(new EmployerList(db));
 		}
 		// Task logic
-		shared_ptr<DTO::Task> addTask(string title) override {
-			checkUser();
-			auto repTask = repositoryList->getTask();
-			shared_ptr<Entities::Task> task(new Entities::Task(title, user->id, getTime()));
+		shared_ptr<DTO::Task> addTask(int sessionNumber, string title) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			shared_ptr<Entities::Task> task(new Entities::Task(title, session->employeeId, getTime()));
 			task->setId(repTask->create(task));
+
 			return shared_ptr<DTO::Task>(new DTO::Task(task));
 		}
-		shared_ptr<DTO::Task> selectTask(string id) override {
-			auto repTask = repositoryList->getTask();
+
+		shared_ptr<DTO::Task> selectTask(int sessionNumber, string id) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
 			repTask->setFilterId(id);
 			auto task = repTask->findOne();
-			this->task = shared_ptr<DTO::Task>(new DTO::Task(task));
-			return this->task;
+
+			session->taskId = id;
+			repSession->update(session);
+			
+			return shared_ptr<DTO::Task>(new DTO::Task(task));
 		}
 		vector<shared_ptr<DTO::Task>> getUserTaskList() override {
 			checkUser();
@@ -59,7 +73,24 @@ namespace BLL {
 		}
 
 		// Task assigned logic
-		shared_ptr<DTO::TaskAssigned> assignTo(string employeeId) override {
+		shared_ptr<DTO::TaskAssigned> assignTo(int sesionNumber, string employeeId) override {
+			auto repTask = repositoryList->task;
+			auto repSession = repositoryList->session;
+			auto repTaskAssigned = repositoryList->taskAssigned;
+
+			repSession->setFilterNumber(sessionNumber);
+			auto session = repSession->findOne();
+
+			repTask->setFilterId(session->taskId);
+			auto task = repTask->findOne();
+
+			string modifiedBy = session->employeeId;
+			time_t modifiedAt = getTime();
+			string assignedTo = employeeId;
+
+			shared_ptr<Entities::TaskAssigned> taskAssigned(new Entities::TaskAssigned(task->id,modifiedBy,modifiedAt,assignedTo));
+			taskAssigned->setId(repTaskAssigned->create(taskAssigned));
+
 			return shared_ptr<DTO::TaskAssigned>();
 		}
 

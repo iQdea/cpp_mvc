@@ -71,6 +71,9 @@
     <ClInclude Include="SessionRepository.h">
       <Filter>Mongo\Repository</Filter>
     </ClInclude>
+    <ClInclude Include="TaskAssignedRepository.h">
+      <Filter>Mongo\Repository</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connection.cpp">

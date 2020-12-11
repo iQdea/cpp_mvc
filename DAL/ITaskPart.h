@@ -5,6 +5,12 @@ namespace DAL {
 	namespace Entities {
 		class ITaskPart : public IEntity {
 		public:
+			ITaskPart(string taskId, string modifiedBy, time_t modifiedAt) : IEntity() {
+				this->taskId = taskId;
+				this->modifiedBy = modifiedBy;
+				this->modifiedAt = modifiedAt;
+			}
+
 			ITaskPart(string id, string taskId, string modifiedBy, time_t modifiedAt) : IEntity(id) {
 				this->taskId = taskId;
 				this->modifiedBy = modifiedBy;

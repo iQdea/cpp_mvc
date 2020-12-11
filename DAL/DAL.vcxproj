@@ -164,6 +164,7 @@
     <ClInclude Include="RepositoryList.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionRepository.h" />
+    <ClInclude Include="TaskAssignedRepository.h" />
     <ClInclude Include="TaskRepository.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="Task.h" />
