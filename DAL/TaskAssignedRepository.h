@@ -19,7 +19,7 @@ namespace DAL {
 				time_t modifiedAt = 0;
 				string assignedTo = parseOid(doc, "assignedTo");
 
-				return shared_ptr<TaskAssigned>(new TaskAssigned(id, taskId, modifiedBy, modifiedAt, assignedTo));
+				return make_shared<TaskAssigned>(id, taskId, modifiedBy, modifiedAt, assignedTo);
 			}
 
 			void setData(basicDoc& doc, TaskAssigned& item) override {

@@ -16,7 +16,7 @@ namespace DAL {
 				int number = parseInt(doc, "number");
 				string leadId = parseOid(doc, "leadId");
 
-				return shared_ptr<Team>(new Team(id, number, leadId));
+				return make_shared<Team>(id, number, leadId);
 			}
 
 			void setData(basicDoc& doc, Team& item) override {
@@ -25,7 +25,7 @@ namespace DAL {
 			}
 
 			void setFilterNumber(int number) {
-				filter = shared_ptr<value>(new value(document{} << "number" << number << finalize));
+				filter = make_shared<value>(document{} << "number" << number << finalize);
 			}
 		};
 	}

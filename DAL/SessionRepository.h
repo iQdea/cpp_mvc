@@ -16,21 +16,13 @@ namespace DAL {
 				string employeeId = parseOid(doc, "employeeId");
 				string taskId = parseOid(doc, "taskId");
 
-				return shared_ptr<Session>(new Session(id, employeeId, taskId));
+				return make_shared<Session>(id, employeeId, taskId);
 			}
 
 			void setData(basicDoc& doc, Session& item) override {
 				addField<oid>(doc, "employeeId", getOid(item.employeeId));
 				addField<oid>(doc, "taskId", getOid(item.taskId));
 			}
-
-			//void setSortNumberDesc() {
-			//	options.sort(document{} << "number" << -1 << finalize);
-			//}
-
-			//void setFilterNumber(int number) {
-			//	filter = shared_ptr<value>(new value(document{} << "number" << number << finalize));
-			//}
 		};
 	}
 }

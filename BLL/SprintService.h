@@ -14,10 +14,10 @@ namespace BLL {
 		}
 
 		// Task logic
-		shared_ptr<DTO::Task> addTask(string title) override {
+		shared_ptr<DTO::Task> addTask(string title, string descr) override {
 			auto repTask = repositoryList->task;
 
-			Entities::Task task(title, currUser->id, getTime());
+			Entities::Task task(title, descr, currUser->id, getTime());
 			task.id = repTask->create(task);
 
 			return make_shared<DTO::Task>(task);
@@ -50,6 +50,31 @@ namespace BLL {
 			vector<shared_ptr<DTO::Task>> result;
 			return result;
 		}
+		vector<shared_ptr<DTO::Task>> getOpenedTaskList() override {
+			auto repTask = repositoryList->task;
+
+			repTask->setFilterStatusNotAssigned((int) StatusType::Open);
+
+			vector<shared_ptr<DTO::Task>> result;
+			auto list = repTask->findAll();
+			for (auto item : list) {
+				result.push_back(make_shared<DTO::Task>(*item));
+			}
+			return result;
+		}
+		vector<shared_ptr<DTO::Task>> getAssignedTaskList() override {
+			auto repTask = repositoryList->task;
+
+			repTask->setFilterAssignedTo(currUser->id);
+
+			vector<shared_ptr<DTO::Task>> result;
+			auto list = repTask->findAll();
+			for (auto item : list) {
+				result.push_back(make_shared<DTO::Task>(*item));
+			}
+			return result;
+		}
+
 		vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) override {
 			vector<shared_ptr<DTO::Task>> result;
 			return result;
@@ -150,7 +175,7 @@ namespace BLL {
 				currTask = repTask->findOne();
 			}
 			catch (...) {
-				currTask = make_shared<Entities::Task>("", "", getTime());
+				currTask = make_shared<Entities::Task>("", "", "", getTime());
 			}
 		}
 		
@@ -232,11 +257,12 @@ namespace BLL {
 		}
 
 		time_t getTime() {
-			return time;
+			return time(0);
+			// return time;
 		}
 
 	private:
-		time_t time;
+		// time_t time = 0;
 		Mongo::RepositoryList* repositoryList;
 	};
 }

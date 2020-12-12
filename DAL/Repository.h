@@ -8,7 +8,7 @@ namespace DAL {
 		template <class T> class Repository : IRepository<T> {
 		public:
 			Repository() {
-				filter = shared_ptr<value>(new value(document{}));
+				filter = make_shared<value>(document{});
 			}
 			string create(T& item) override {
 				auto data = basicDoc();
@@ -28,7 +28,7 @@ namespace DAL {
 				coll.delete_one(current(id));
 			}
 			virtual shared_ptr<T> findOne() {
-				auto result = coll.find_one(filter->view(), options);
+				auto result = coll.find_one(filter->view());
 				if (!result) {
 					throw invalid_argument("Entity was not found");
 				}
@@ -37,7 +37,7 @@ namespace DAL {
 				return getEntity(doc);
 			}
 			vector<shared_ptr<T>> findAll() override {
-				auto cursor = coll.find(filter->view(), options);
+				auto cursor = coll.find(filter->view());
 				vector<shared_ptr<T>> list;
 
 				for (view doc : cursor) {
@@ -56,7 +56,6 @@ namespace DAL {
 		protected:
 			collection coll;
 			shared_ptr<value> filter;
-			mongocxx::options::find options{};
 
 			view_or_value current(T& item) {
 				return document{} << "_id" << getOid(item.id) << finalize;

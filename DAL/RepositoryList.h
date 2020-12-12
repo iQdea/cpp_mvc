@@ -12,14 +12,15 @@ namespace DAL {
 		class RepositoryList {
 		public:
 			RepositoryList(string url) {
-				connection = shared_ptr<Connection>(new Connection(url));
+				connection = make_shared<Connection>(url);
 				auto db = connection->db;
-				task = shared_ptr<TaskRepository>(new TaskRepository(db));
-				taskAssigned = shared_ptr<TaskAssignedRepository>(new TaskAssignedRepository(db));
-				taskStatus = shared_ptr<TaskStatusRepository>(new TaskStatusRepository(db));
-				taskComment = shared_ptr<TaskCommentRepository>(new TaskCommentRepository(db));
-				employee = shared_ptr<EmployeeRepository>(new EmployeeRepository(db));
-				session = shared_ptr<SessionRepository>(new SessionRepository(db));
+
+				task = make_shared<TaskRepository>(db);
+				taskAssigned = make_shared<TaskAssignedRepository>(db);
+				taskStatus = make_shared<TaskStatusRepository>(db);
+				taskComment = make_shared<TaskCommentRepository>(db);
+				employee = make_shared<EmployeeRepository>(db);
+				session = make_shared<SessionRepository>(db);
 			}
 			
 			shared_ptr<TaskCommentRepository> taskComment;

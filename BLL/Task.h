@@ -6,7 +6,8 @@ namespace BLL {
 		public:
 			Task(Entities::Task& item) : IEntity(item.id) {
 				title = item.title;
-				
+				descr = item.descr;
+
 				createdBy = item.createdBy;
 				createdAt = item.createdAt;
 
@@ -18,6 +19,7 @@ namespace BLL {
 			}
 
 			string title;
+			string descr;
 
 			string createdBy;
 			time_t createdAt;

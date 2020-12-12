@@ -19,7 +19,7 @@ namespace DAL {
 				time_t modifiedAt = 0;
 				string comment = parseString(doc, "comment");
 
-				return shared_ptr<TaskComment>(new TaskComment(taskId, modifiedBy, modifiedAt, comment));
+				return make_shared<TaskComment>(taskId, modifiedBy, modifiedAt, comment);
 			}
 
 			void setData(basicDoc& doc, TaskComment& item) override {
@@ -28,6 +28,7 @@ namespace DAL {
 				addField<oid>(doc, "modifiedBy", getOid(item.modifiedBy));
 				addField<string>(doc, "comment", item.comment);
 			}
+			
 			void setFilterTaskId(string taskId) {
 				filter = shared_ptr<value>(new value(document{}
 					<< "taskId" << oid{ string_view{taskId} }

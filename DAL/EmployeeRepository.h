@@ -17,7 +17,7 @@ namespace DAL {
 				string name = parseString(doc, "name");
 				string managerId = parseOid(doc, "managerId");
 
-				return shared_ptr<Employee>(new Employee(id, name, managerId));
+				return make_shared<Employee>(id, name, managerId);
 			}
 
 			void setData(basicDoc& doc, Employee& item) override {

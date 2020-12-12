@@ -6,7 +6,7 @@ std::string query(std::string message) {
     //const std::string correlation(uuid());
     std::string response = "";
 
-    SimplePocoHandler handler("192.168.0.95", 5672);
+    SimplePocoHandler handler("192.168.0.59", 5672);
     AMQP::Connection connection(&handler, AMQP::Login("qdea", "qdea12345"), "/");
     AMQP::Channel channel(&connection);
 

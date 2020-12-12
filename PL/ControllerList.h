@@ -10,8 +10,8 @@ using namespace Controllers;
 class ControllerList {
 public:
 	ControllerList(SprintService* sprintService) {
-		user = shared_ptr<UserController>(new UserController(sprintService));
-		task = shared_ptr<TaskController>(new TaskController(sprintService));
+		user = make_shared<UserController>(sprintService);
+		task = make_shared<TaskController>(sprintService);
 	}
 
 	string route(string request) {
@@ -52,17 +52,27 @@ public:
 					else throw invalid_argument("Route not found");
 				}
 				else if (parts[1] == "task") {
-					if (parts.size() == 4 && parts[2] == "select") {
+					if (parts.size() == 3 && parts[2] == "opened") {
+						response += task->opened();
+					}
+					else if (parts.size() == 3 && parts[2] == "assigned") {
+						response += task->assigned();
+					}
+					else if (parts.size() == 4 && parts[2] == "select") {
 						string taskId = parts[3];
 						response += task->select(taskId);
 					}
-					else if (parts.size() == 4 && parts[2] == "add") {
+					else if (parts.size() == 5 && parts[2] == "add") {
 						string title = parts[3];
-						response += task->add(title);
+						string descr = parts[4];
+						response += task->add(title, descr);
 					}
 					else if (parts.size() == 4 && parts[2] == "assign") {
 						string employeeId = parts[3];
 						response = task->assignTo(employeeId);
+					}
+					else if (parts.size() == 3 && parts[2] == "assign") {
+						response = task->assignToMe();
 					}
 					else if (parts.size() == 4 && parts[2] == "status") {
 						int status = stoi(parts[3]);
@@ -82,6 +92,7 @@ public:
 				}
 				else throw invalid_argument("Route not found");
 			}
+			else throw invalid_argument("Route not found");
 		}
 		catch (exception e) {
 			response = "success:false";

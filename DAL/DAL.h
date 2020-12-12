@@ -7,10 +7,12 @@
 #include "Team.h"
 #include "Session.h"
 #include "Employee.h"
-#include "Connection.h"
+
 #include "Repository.h"
 #include "RepositoryList.h"
 #include "TaskRepository.h"
 #include "TeamRepository.h"
 #include "EmployeeRepository.h"
 #include "SessionRepository.h"
+
+#include "Connection.h"
