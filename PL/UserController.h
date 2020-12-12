@@ -8,24 +8,24 @@ using namespace std;
 namespace Controllers {
 	class UserController : public IController {
 	public:
-		UserController(shared_ptr<Context> context) : IController(context) {
-		}
+		UserController(SprintService* sprintService) : IController(sprintService) {}
+
 		void auth(string sessionId) {
-			context->sprintService->auth(sessionId);
+			sprintService->auth(sessionId);
 		}
 
 		string login(string name) {
-			ViewModel::Session response(context->sprintService->login(name));
+			ViewModel::Session response(sprintService->login(name));
 			return response.str();
 		}
 
 		string add(string name) {
-			ViewModel::Employee response(context->sprintService->addAssistant(name));
+			ViewModel::Employee response(sprintService->addAssistant(name));
 			return response.str();
 		}
 
 		string manager(string employeeId) {
-			if (context->sprintService->setManager(employeeId)) {
+			if (sprintService->setManager(employeeId)) {
 				return "success:true";
 			}
 			else {
@@ -34,7 +34,7 @@ namespace Controllers {
 		}
 		string getAssistantList() {
 			string responce = "";
-			auto list = context->sprintService->getAssistantList();
+			auto list = sprintService->getAssistantList();
 			for (auto item : list) {
 				ViewModel::Employee employee(item);
 				if (responce != "") {
@@ -46,7 +46,7 @@ namespace Controllers {
 		}
 
 		void logout() {
-			context->sprintService->logout();
+			sprintService->logout();
 		}
 	};
 }

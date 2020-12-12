@@ -9,7 +9,7 @@ namespace BLL {
 
 	class SprintService : public ISprintService {
 	public:
-		SprintService(shared_ptr<Mongo::RepositoryList> repositoryList) {
+		SprintService(Mongo::RepositoryList* repositoryList) {
 			this->repositoryList = repositoryList;
 		}
 
@@ -237,6 +237,6 @@ namespace BLL {
 
 	private:
 		time_t time;
-		shared_ptr<Mongo::RepositoryList> repositoryList;
+		Mongo::RepositoryList* repositoryList;
 	};
 }

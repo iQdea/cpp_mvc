@@ -157,7 +157,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Context.h" />
     <ClInclude Include="ControllerList.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="IController.h" />
@@ -166,10 +165,8 @@
     <ClInclude Include="Task.h" />
     <ClInclude Include="TaskAssigned.h" />
     <ClInclude Include="TaskComment.h" />
-    <ClInclude Include="TaskList.h" />
     <ClInclude Include="TaskStatus.h" />
     <ClInclude Include="UserController.h" />
-    <ClInclude Include="UserList.h" />
     <ClInclude Include="ViewModels.h" />
   </ItemGroup>
   <ItemGroup>

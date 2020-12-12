@@ -9,9 +9,9 @@ using namespace Controllers;
 
 class ControllerList {
 public:
-	ControllerList(shared_ptr<Context> context) {
-		user = shared_ptr<UserController>(new UserController(context));
-		task = shared_ptr<TaskController>(new TaskController(context));
+	ControllerList(SprintService* sprintService) {
+		user = shared_ptr<UserController>(new UserController(sprintService));
+		task = shared_ptr<TaskController>(new TaskController(sprintService));
 	}
 
 	string route(string request) {

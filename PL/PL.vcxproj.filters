@@ -2,9 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="SimplePocoHandler.cpp" />
     <ClCompile Include="TaskController.h">
       <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="SimplePocoHandler.cpp">
+      <Filter>Socket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,16 +40,11 @@
     <Filter Include="ViewModels">
       <UniqueIdentifier>{ab25b566-76df-4b2e-a11f-bb0c4173d542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{bb3435af-13a5-4db3-8ac8-3503ddcc7dd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Context.h" />
-    <ClInclude Include="UserList.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskList.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="SimplePocoHandler.h" />
     <ClInclude Include="IController.h">
       <Filter>Controllers</Filter>
     </ClInclude>
@@ -75,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="TaskComment.h">
       <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplePocoHandler.h">
+      <Filter>Socket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

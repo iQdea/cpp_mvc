@@ -1,15 +1,16 @@
 #pragma once
-#include "Context.h"
+#include "BLL.h"
 
 namespace Controllers {
 	using namespace BLL::DTO;
 
 	class IController {
 	public:
-		IController(shared_ptr<Context> context) {
-			this->context = context;
+		IController(BLL::SprintService* sprintService) {
+			this->sprintService = sprintService;
 		}
+		virtual ~IController() = 0;
 	protected:
-		shared_ptr<Context> context;
+		BLL::SprintService* sprintService;
 	};
 }
