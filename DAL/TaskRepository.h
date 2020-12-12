@@ -29,6 +29,7 @@ namespace DAL {
 
 			void setData(basicDoc& doc, Task& item) override {
 				addField<string>(doc, "title", item.title);
+				addField<string>(doc, "descr", item.descr);
 				addField<oid>(doc, "createdBy", getOid(item.createdBy));
 				addField<int>(doc, "createdAt", item.createdAt);
 				addField<int>(doc, "status", (int)item.status);
