@@ -53,7 +53,7 @@ namespace BLL {
 		vector<shared_ptr<DTO::Task>> getOpenedTaskList() override {
 			auto repTask = repositoryList->task;
 
-			repTask->setFilterStatusNotAssigned((int) StatusType::Open);
+			repTask->setFilterStatusNotAssigned((int) TaskStatusEnum::Open);
 
 			vector<shared_ptr<DTO::Task>> result;
 			auto list = repTask->findAll();
@@ -149,7 +149,7 @@ namespace BLL {
 		}
 
 		// Task status logic
-		shared_ptr<DTO::TaskStatus> setStatus(StatusType status) override {
+		shared_ptr<DTO::TaskStatus> setStatus(TaskStatusEnum status) override {
 			auto repTask = repositoryList->task;
 			auto repTaskStatus = repositoryList->taskStatus;
 

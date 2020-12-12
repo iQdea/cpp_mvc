@@ -45,6 +45,9 @@
       <Filter>DTO</Filter>
     </ClInclude>
     <ClInclude Include="BLL.h" />
+    <ClInclude Include="Report.h">
+      <Filter>DTO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BLL.cpp" />

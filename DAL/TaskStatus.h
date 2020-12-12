@@ -4,19 +4,19 @@ namespace DAL {
 	namespace Entities {		
 		class TaskStatus : public ITaskPart {
 		public:
-			TaskStatus(string taskId, string modifiedBy, time_t modifiedAt, StatusType status) : ITaskPart(taskId, modifiedBy, modifiedAt) {
+			TaskStatus(string taskId, string modifiedBy, time_t modifiedAt, TaskStatusEnum status) : ITaskPart(taskId, modifiedBy, modifiedAt) {
 				this->status = status;
 			}
 
-			TaskStatus(string id, string taskId, string modifiedBy, time_t modifiedAt, StatusType status) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
+			TaskStatus(string id, string taskId, string modifiedBy, time_t modifiedAt, TaskStatusEnum status) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
 				this->status = status;
 			}
 
 			TaskStatus(string id, string taskId, string modifiedBy, time_t modifiedAt, int status) : ITaskPart(id, taskId, modifiedBy, modifiedAt) {
-				this->status = (StatusType) status;
+				this->status = (TaskStatusEnum) status;
 			}
 
-			StatusType status;
+			TaskStatusEnum status;
 		};
 	}
 }

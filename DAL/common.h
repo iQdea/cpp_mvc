@@ -10,7 +10,9 @@
 namespace DAL {
 	using namespace std;
 	
-	enum class StatusType { Open = 0, Active, Resolved };
+	enum class TaskStatusEnum { Open = 0, Active, Resolved };
+	enum class ReportStatusEnum { Draft = 0, Ready };
+	enum class ReportTypeEnum { Daily = 0, Sprint };
 
 	namespace Entities {
 		using basicDoc = bsoncxx::builder::basic::document;

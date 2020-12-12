@@ -26,6 +26,7 @@
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ISprintService.h" />
     <ClInclude Include="ITaskPart.h" />
+    <ClInclude Include="Report.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SprintService.h" />
     <ClInclude Include="Task.h" />

@@ -28,7 +28,7 @@ namespace BLL {
 			string lastModifiedBy = "";
 
 			string assignedTo = "";
-			StatusType status = StatusType::Open;
+			TaskStatusEnum status = TaskStatusEnum::Open;
 		};
 	}
 }

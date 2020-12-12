@@ -18,7 +18,7 @@ namespace DAL {
 				this->createdAt = createdAt;
 			};
 
-			Task(string id, string title, string descr, string createdBy, time_t createdAt, StatusType status,
+			Task(string id, string title, string descr, string createdBy, time_t createdAt, TaskStatusEnum status,
 				string assignedTo, string lastModifiedBy, time_t lastModifiedAt) : IEntity(id) {
 				this->title = title;
 				this->descr = descr;
@@ -35,7 +35,7 @@ namespace DAL {
 			string createdBy;
 			time_t createdAt;
 
-			StatusType status = StatusType::Open;
+			TaskStatusEnum status = TaskStatusEnum::Open;
 			string assignedTo = "";
 
 			string lastModifiedBy = "";

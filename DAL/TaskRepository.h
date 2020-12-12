@@ -18,7 +18,7 @@ namespace DAL {
 				string descr = parseString(doc, "descr");
 				string createdBy = parseOid(doc, "createdBy");
 				time_t createdAt = parseInt(doc, "createdAt");
-				StatusType status = (StatusType) parseInt(doc, "status");
+				TaskStatusEnum status = (TaskStatusEnum) parseInt(doc, "status");
 				string assignedTo = parseOid(doc, "assignedTo");
 				string lastModifiedBy = parseOid(doc, "lastModifiedBy");
 				time_t lastModifiedAt = parseInt(doc, "lastModifiedAt");

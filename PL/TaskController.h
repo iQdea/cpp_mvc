@@ -24,7 +24,7 @@ namespace Controllers {
 			return response.str();
 		}
 		string setStatus(int status) {
-			ViewModel::TaskStatus response(*sprintService->setStatus((StatusType) status));
+			ViewModel::TaskStatus response(*sprintService->setStatus((TaskStatusEnum) status));
 			return response.str();
 		}
 		string addComment(string comment) {

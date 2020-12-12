@@ -28,7 +28,7 @@ namespace BLL {
 		virtual shared_ptr<DTO::TaskAssigned> assignTo(string employeeId) = 0;
 
 		// Task status logic
-		virtual shared_ptr<DTO::TaskStatus> setStatus(StatusType status) = 0;
+		virtual shared_ptr<DTO::TaskStatus> setStatus(TaskStatusEnum status) = 0;
 
 		// Task comment logic
 		virtual shared_ptr<DTO::TaskComment> addComment(string comment) = 0;

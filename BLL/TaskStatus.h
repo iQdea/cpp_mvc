@@ -8,7 +8,7 @@ namespace BLL {
 				status = item.status;
 			}
 
-			StatusType status;
+			TaskStatusEnum status;
 		};
 	}
 }

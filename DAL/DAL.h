@@ -7,6 +7,7 @@
 #include "Team.h"
 #include "Session.h"
 #include "Employee.h"
+#include "Report.h"
 
 #include "Repository.h"
 #include "RepositoryList.h"
@@ -14,5 +15,6 @@
 #include "TeamRepository.h"
 #include "EmployeeRepository.h"
 #include "SessionRepository.h"
+#include "ReportRepository.h"
 
 #include "Connection.h"
