@@ -59,7 +59,10 @@ public:
 					else throw invalid_argument("Route not found");
 				}
 				else if (parts[1] == "task") {
-					if (parts.size() == 3 && parts[2] == "opened") {
+					if (parts.size() == 3 && parts[2] == "today") {
+						response += task->changesToday();
+					}
+					else if (parts.size() == 3 && parts[2] == "opened") {
 						response += task->opened();
 					}
 					else if (parts.size() == 3 && parts[2] == "assigned") {

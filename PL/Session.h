@@ -5,8 +5,8 @@ using namespace BLL;
 namespace ViewModel {
 	class Session {
 	public:
-		Session(shared_ptr<DTO::Session> item) {
-			id = item->id;
+		Session(DTO::Session& item) {
+			id = item.id;
 		}
 
 		string str() {

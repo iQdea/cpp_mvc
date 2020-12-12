@@ -46,6 +46,16 @@ namespace DAL {
 				<< finalize));
 			}
 
+			void setFilterCreatedByBetween(string createdBy, time_t start, time_t end) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "createdBy" << getOid(createdBy)
+					<< "createdAt" << open_document
+					<< "$gte" << (int) start
+					<< "$lt" << (int) end
+					<< close_document
+					<< finalize));
+			}
+
 			void setFilterStatusNotAssigned(int status) {
 				filter = shared_ptr<value>(new value(document{}
 					<< "status" << status

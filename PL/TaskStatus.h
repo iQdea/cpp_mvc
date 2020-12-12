@@ -2,8 +2,8 @@
 namespace ViewModel {
 	class TaskStatus {
 	public:
-		TaskStatus(shared_ptr<DTO::TaskStatus> item) {
-			id = item->id;
+		TaskStatus(DTO::TaskStatus& item) {
+			id = item.id;
 		}
 
 		string str() {

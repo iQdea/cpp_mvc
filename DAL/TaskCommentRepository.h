@@ -35,6 +35,16 @@ namespace DAL {
 					<< "taskId" << oid{ string_view{taskId} }
 				<< finalize));
 			}
+
+			void setFilterModifiedByBetween(string modifiedBy, time_t start, time_t end) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "modifiedBy" << getOid(modifiedBy)
+					<< "modifiedAt" << open_document
+					<< "$gte" << (int)start
+					<< "$lt" << (int)end
+					<< close_document
+					<< finalize));
+			}
 		};
 	}
 }

@@ -12,12 +12,12 @@ namespace Controllers {
 		}
 
 		string login(string name) {
-			ViewModel::Session response(sprintService->login(name));
+			ViewModel::Session response(*sprintService->login(name));
 			return response.str();
 		}
 
 		string add(string name) {
-			ViewModel::Employee response(sprintService->addAssistant(name));
+			ViewModel::Employee response(*sprintService->addAssistant(name));
 			return response.str();
 		}
 
@@ -30,16 +30,16 @@ namespace Controllers {
 			}
 		}
 		string getAssistantList() {
-			string responce = "";
+			string response = "";
 			auto list = sprintService->getAssistantList();
 			for (auto item : list) {
-				ViewModel::Employee employee(item);
-				if (responce != "") {
-					responce += "|";
+				ViewModel::Employee employee(*item);
+				if (response != "") {
+					response += "|";
 				}
-				responce += employee.str();
+				response += employee.str();
 			}
-			return responce;
+			return response;
 		}
 
 		void logout() {

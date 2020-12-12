@@ -29,6 +29,16 @@ namespace DAL {
 				addField<int>(doc, "modifiedAt", (int)item.modifiedAt);
 				addField<int>(doc, "status", (int)item.status);
 			}
+
+			void setFilterModifiedByBetween(string modifiedBy, time_t start, time_t end) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "modifiedBy" << getOid(modifiedBy)
+					<< "modifiedAt" << open_document
+					<< "$gte" << (int)start
+					<< "$lt" << (int)end
+					<< close_document
+					<< finalize));
+			}
 		};
 	}
 }

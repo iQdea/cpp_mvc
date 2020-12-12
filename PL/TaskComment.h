@@ -2,9 +2,9 @@
 namespace ViewModel {
 	class TaskComment {
 	public:
-		TaskComment(shared_ptr<DTO::TaskComment> item) {
-			id = item->id;
-			comment = item->comment;
+		TaskComment(DTO::TaskComment& item) {
+			id = item.id;
+			comment = item.comment;
 		}
 
 		string str() {

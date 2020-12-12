@@ -2,9 +2,9 @@
 namespace ViewModel {
 	class Employee {
 	public:
-		Employee(shared_ptr<DTO::Employee> item) {
-			id = item->id;
-			name = item->name;
+		Employee(DTO::Employee& item) {
+			id = item.id;
+			name = item.name;
 		}
 
 		string str() {

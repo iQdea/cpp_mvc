@@ -29,6 +29,16 @@ namespace DAL {
 				addField<int>(doc, "modifiedAt", (int)item.modifiedAt);
 				addField<oid>(doc, "assignedTo", getOid(item.assignedTo));
 			}
+
+			void setFilterAssignedToBetween(string assignedTo, time_t start, time_t end) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "assignedTo" << getOid(assignedTo)
+					<< "modifiedAt" << open_document
+					<< "$gte" << (int)start
+					<< "$lt" << (int)end
+					<< close_document
+					<< finalize));
+			}
 		};
 	}
 }

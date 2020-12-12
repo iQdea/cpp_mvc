@@ -2,8 +2,8 @@
 namespace ViewModel {
 	class TaskAssigned {
 	public:
-		TaskAssigned(shared_ptr<DTO::TaskAssigned> item) {
-			id = item->id;
+		TaskAssigned(DTO::TaskAssigned& item) {
+			id = item.id;
 		}
 
 		string str() {

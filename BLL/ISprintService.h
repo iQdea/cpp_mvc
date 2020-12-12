@@ -18,6 +18,11 @@ namespace BLL {
 		virtual vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskListModifiedBetween(time_t start, time_t end) = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskListAssignedToAssistants() = 0;
+		virtual void getTaskListHistoryBetween(time_t start, time_t end,
+			vector<DTO::Task>& taskList,
+			vector<DTO::TaskStatus>& taskStatusList,
+			vector<DTO::TaskComment>& taskCommentList,
+			vector<DTO::TaskAssigned>& taskAssignedList) = 0;
 
 		// Task assigned logic
 		virtual shared_ptr<DTO::TaskAssigned> assignTo(string employeeId) = 0;

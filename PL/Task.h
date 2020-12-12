@@ -2,9 +2,9 @@
 namespace ViewModel {
 	class Task {
 	public:
-		Task(shared_ptr<DTO::Task> item) {
-			id = item->id;
-			title = item->title;
+		Task(DTO::Task& item) {
+			id = item.id;
+			title = item.title;
 		}
 
 		string str() {

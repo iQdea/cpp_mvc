@@ -88,6 +88,42 @@ namespace BLL {
 			return result;
 		}
 
+		void getTaskListHistoryBetween(time_t start, time_t end, 
+			vector<DTO::Task>& taskList,
+			vector<DTO::TaskStatus>& taskStatusList,
+			vector<DTO::TaskComment>& taskCommentList,
+			vector<DTO::TaskAssigned>& taskAssignedList) override
+		{
+			auto repTask = repositoryList->task;
+			auto repTaskStatus = repositoryList->taskStatus;
+			auto repTaskComment = repositoryList->taskComment;
+			auto repTaskAssigned = repositoryList->taskAssigned;
+
+			repTask->setFilterCreatedByBetween(currUser->id, start, end);
+			auto list1 = repTask->findAll();
+			for (auto item : list1) {
+				taskList.push_back(DTO::Task(*item));
+			}
+
+			repTaskStatus->setFilterModifiedByBetween(currUser->id, start, end);
+			auto list2 = repTaskStatus->findAll();
+			for (auto item : list2) {
+				taskStatusList.push_back(DTO::TaskStatus(*item));
+			}
+
+			repTaskComment->setFilterModifiedByBetween(currUser->id, start, end);
+			auto list3 = repTaskComment->findAll();
+			for (auto item : list3) {
+				taskCommentList.push_back(DTO::TaskComment(*item));
+			}
+
+			repTaskAssigned->setFilterAssignedToBetween(currUser->id, start, end);
+			auto list4 = repTaskAssigned->findAll();
+			for (auto item : list4) {
+				taskAssignedList.push_back(DTO::TaskAssigned(*item));
+			}
+		}
+
 		// Task assigned logic
 		shared_ptr<DTO::TaskAssigned> assignTo(string employeeId) override {
 			auto repTask = repositoryList->task;
@@ -264,8 +300,19 @@ namespace BLL {
 		}
 
 		time_t getTime() {
-			return time(0) + (int) currSession->shiftHours * 3600;
+			return time(0) + (int) (currSession->shiftHours * 3600);
 		}
+
+		void getToday(time_t& start, time_t& end) {
+			time_t currTime = getTime();
+			struct tm t;
+			localtime_s(&t, &currTime);
+			t.tm_hour = 0;
+			t.tm_min = 0;
+			t.tm_sec = 0;
+			start = mktime(&t);
+			end = start + 24 * 3600;
+		} 
 
 	private:
 		// time_t time = 0;
