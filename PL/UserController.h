@@ -45,5 +45,9 @@ namespace Controllers {
 		void logout() {
 			sprintService->logout();
 		}
+
+		void addTime(double hours) {
+			sprintService->addTime(hours);
+		}
 	};
 }

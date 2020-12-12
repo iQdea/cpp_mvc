@@ -185,6 +185,13 @@ namespace BLL {
 			repSession->remove(currSession->id);
 		}
 
+		virtual void addTime(float hours) {
+			auto repSession = repositoryList->session;
+
+			currSession->shiftHours += hours;
+			repSession->update(*currSession);
+		}
+
 		shared_ptr<DTO::Session> login(string name) override {
 			auto repEmployee = repositoryList->employee;
 			auto repSession = repositoryList->session;
@@ -257,8 +264,7 @@ namespace BLL {
 		}
 
 		time_t getTime() {
-			return time(0);
-			// return time;
+			return time(0) + (int) currSession->shiftHours * 3600;
 		}
 
 	private:

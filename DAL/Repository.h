@@ -90,6 +90,15 @@ namespace DAL {
 				return result;
 			}
 
+			double parseFloat(view& doc, string key, double defaultValue = 0) {
+				double result = defaultValue;
+
+				try { result = doc[key].get_double().value; }
+				catch (...) {}
+
+				return result;
+			}
+
 			string parseString(view& doc, string key, string defaultValue = "") {
 				string result = defaultValue;
 

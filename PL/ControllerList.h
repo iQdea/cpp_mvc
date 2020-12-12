@@ -33,7 +33,14 @@ public:
 				string sessionId = parts[0];
 				user->auth(sessionId);
 
-				if (parts[1] == "user") {
+				if (parts[1] == "time") {
+					if (parts.size() == 4 && parts[2] == "add") {
+						double hours = stod(parts[3]);
+						user->addTime(hours);
+						response = "success:true";
+					}
+				}
+				else if (parts[1] == "user") {
 					if (parts.size() == 3 && parts[2] == "logout") {
 						user->logout();
 						response = "success:true";

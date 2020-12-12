@@ -15,13 +15,15 @@ namespace DAL {
 				string id = parseOid(doc, "_id");
 				string employeeId = parseOid(doc, "employeeId");
 				string taskId = parseOid(doc, "taskId");
+				double shiftHours = parseFloat(doc, "shiftHours");
 
-				return make_shared<Session>(id, employeeId, taskId);
+				return make_shared<Session>(id, employeeId, taskId, shiftHours);
 			}
 
 			void setData(basicDoc& doc, Session& item) override {
 				addField<oid>(doc, "employeeId", getOid(item.employeeId));
 				addField<oid>(doc, "taskId", getOid(item.taskId));
+				addField<double>(doc, "shiftHours", item.shiftHours);
 			}
 		};
 	}
