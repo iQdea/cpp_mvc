@@ -16,7 +16,7 @@ namespace DAL {
 				string id = parseOid(doc, "_id");
 				string taskId = parseOid(doc, "taskId");
 				string modifiedBy = parseOid(doc, "modifiedBy");
-				time_t modifiedAt = 0;
+				time_t modifiedAt = parseInt(doc, "modifiedAt");
 				string comment = parseString(doc, "comment");
 
 				return make_shared<TaskComment>(taskId, modifiedBy, modifiedAt, comment);
@@ -26,6 +26,7 @@ namespace DAL {
 				addField<oid>(doc, "_id", getOid(item.id));
 				addField<oid>(doc, "taskId", getOid(item.taskId));
 				addField<oid>(doc, "modifiedBy", getOid(item.modifiedBy));
+				addField<int>(doc, "modifiedAt", (int)item.modifiedAt);
 				addField<string>(doc, "comment", item.comment);
 			}
 			

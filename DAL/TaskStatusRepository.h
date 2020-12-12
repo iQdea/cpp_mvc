@@ -26,7 +26,7 @@ namespace DAL {
 				addField<oid>(doc, "_id", getOid(item.id));
 				addField<oid>(doc, "taskId", getOid(item.taskId));
 				addField<oid>(doc, "modifiedBy", getOid(item.modifiedBy));
-				addField<int>(doc, "modifiedAt", (int)item.status);
+				addField<int>(doc, "modifiedAt", (int)item.modifiedAt);
 				addField<int>(doc, "status", (int)item.status);
 			}
 		};
