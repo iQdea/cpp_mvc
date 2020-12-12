@@ -20,9 +20,9 @@ namespace DAL {
 				return shared_ptr<Employee>(new Employee(id, name, managerId));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<Employee> item) override {
-				addField<string>(doc, "name", item->name);
-				addField<oid>(doc, "managerId", getOid(item->managerId));
+			void setData(basicDoc& doc, Employee& item) override {
+				addField<string>(doc, "name", item.name);
+				addField<oid>(doc, "managerId", getOid(item.managerId));
 			}
 
 			void setFilterManagerId(string id) {

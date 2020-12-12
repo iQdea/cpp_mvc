@@ -4,9 +4,9 @@ namespace BLL {
 	namespace DTO {
 		class Employee : public IEntity {
 		public:
-			Employee(shared_ptr<Entities::Employee> item) : IEntity(item->id) {
-				name = item->name;
-				managerId = item->managerId;
+			Employee(Entities::Employee& item) : IEntity(item.id) {
+				name = item.name;
+				managerId = item.managerId;
 			}
 
 			string name;

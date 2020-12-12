@@ -4,9 +4,9 @@ namespace BLL {
 	namespace DTO {
 		class Session : public IEntity {
 		public:
-			Session(shared_ptr<Entities::Session> item) : IEntity(item->id) {
-				employeeId = item->employeeId;
-				taskId = item->taskId;
+			Session(Entities::Session& item) : IEntity(item.id) {
+				employeeId = item.employeeId;
+				taskId = item.taskId;
 			}
 
 			string employeeId;

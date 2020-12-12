@@ -21,9 +21,9 @@ namespace DAL {
 				return shared_ptr<Task>(new Task(id, title, createdBy, createdAt));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<Task> item) override {
-				addField<string>(doc, "title", item->title);
-				addField<oid>(doc, "createdBy", getOid(item->createdBy));
+			void setData(basicDoc& doc, Task& item) override {
+				addField<string>(doc, "title", item.title);
+				addField<oid>(doc, "createdBy", getOid(item.createdBy));
 			}
 
 			void setFilterCreatedBy(string createdBy) {

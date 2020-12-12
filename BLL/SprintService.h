@@ -17,10 +17,10 @@ namespace BLL {
 		shared_ptr<DTO::Task> addTask(string title) override {
 			auto repTask = repositoryList->task;
 
-			shared_ptr<Entities::Task> task(new Entities::Task(title, currUser->id, getTime()));
-			task->setId(repTask->create(task));
+			Entities::Task task(title, currUser->id, getTime());
+			task.id = repTask->create(task);
 
-			return shared_ptr<DTO::Task>(new DTO::Task(task));
+			return make_shared<DTO::Task>(task);
 		}
 
 		shared_ptr<DTO::Task> selectTask(string id) override {
@@ -31,18 +31,18 @@ namespace BLL {
 			auto task = repTask->findOne();
 
 			currSession->taskId = id;
-			repSession->update(currSession);
+			repSession->update(*currSession);
 			
-			return shared_ptr<DTO::Task>(new DTO::Task(task));
+			return make_shared<DTO::Task>(*task);
 		}
 		vector<shared_ptr<DTO::Task>> getUserTaskList() override {
-			auto repTask = repositoryList->getTask();
+			auto repTask = repositoryList->task;
 			repTask->setFilterCreatedBy(currUser->id);
 
 			vector<shared_ptr<DTO::Task>> result;
 			auto list = repTask->findAll();
 			for (auto item : list) {
-				result.push_back(shared_ptr<DTO::Task>(new DTO::Task(item)));
+				result.push_back(make_shared<DTO::Task>(*item));
 			}
 			return result;
 		}
@@ -76,15 +76,15 @@ namespace BLL {
 			time_t modifiedAt = getTime();
 			string assignedTo = employeeId;
 
-			shared_ptr<Entities::TaskAssigned> taskAssigned(new Entities::TaskAssigned(currTask->id, modifiedBy, modifiedAt, assignedTo));
-			taskAssigned->setId(repTaskAssigned->create(taskAssigned));
+			Entities::TaskAssigned taskAssigned(currTask->id, modifiedBy, modifiedAt, assignedTo);
+			taskAssigned.id = repTaskAssigned->create(taskAssigned);
 
 			currTask->assignedTo = assignedTo;
 			currTask->lastModifiedAt = modifiedAt;
 			currTask->lastModifiedBy = modifiedBy;
-			repTask->update(currTask);
+			repTask->update(*currTask);
 
-			return shared_ptr<DTO::TaskAssigned>(new DTO::TaskAssigned(taskAssigned));
+			return make_shared<DTO::TaskAssigned>(taskAssigned);
 		}
 
 		// Task status logic
@@ -99,15 +99,15 @@ namespace BLL {
 			string modifiedBy = currUser->id;
 			time_t modifiedAt = getTime();
 
-			shared_ptr<Entities::TaskStatus> taskStatus(new Entities::TaskStatus(currTask->id, modifiedBy, modifiedAt, status));
-			taskStatus->setId(repTaskStatus->create(taskStatus));
+			Entities::TaskStatus taskStatus(currTask->id, modifiedBy, modifiedAt, status);
+			taskStatus.id = repTaskStatus->create(taskStatus);
 
 			currTask->status = status;
 			currTask->lastModifiedAt = modifiedAt;
 			currTask->lastModifiedBy = modifiedBy;
-			repTask->update(currTask);
+			repTask->update(*currTask);
 
-			return shared_ptr<DTO::TaskStatus>(new DTO::TaskStatus(taskStatus));
+			return make_shared<DTO::TaskStatus>(taskStatus);
 		}
 
 		// Task comment logic
@@ -121,10 +121,10 @@ namespace BLL {
 			string modifiedBy = currUser->id;
 			time_t modifiedAt = getTime();
 
-			shared_ptr<Entities::TaskComment> taskComment(new Entities::TaskComment(currTask->id, modifiedBy, modifiedAt, comment));
-			taskComment->setId(repTaskComment->create(taskComment));
+			Entities::TaskComment taskComment(currTask->id, modifiedBy, modifiedAt, comment);
+			taskComment.id = repTaskComment->create(taskComment);
 
-			return shared_ptr<DTO::TaskComment>(new DTO::TaskComment(taskComment));
+			return make_shared<DTO::TaskComment>(taskComment);
 		}
 
 		// Employer logic
@@ -150,7 +150,7 @@ namespace BLL {
 				currTask = repTask->findOne();
 			}
 			catch (...) {
-				currTask = shared_ptr<Entities::Task>(new Entities::Task("", "", getTime()));
+				currTask = make_shared<Entities::Task>("", "", getTime());
 			}
 		}
 		
@@ -167,20 +167,20 @@ namespace BLL {
 			repEmployee->setFilterName(name);
 			auto employee = repEmployee->findOne();
 			
-			shared_ptr<Entities::Session> session(new Entities::Session(employee->id, ""));
-			session->setId(repSession->create(session));
+			Entities::Session session(employee->id, "");
+			session.id = repSession->create(session);
 
-			return shared_ptr<DTO::Session>(new DTO::Session(session));
+			return make_shared<DTO::Session>(session);
 		}
 
 		shared_ptr<DTO::Employee> addAssistant(string name) override {
 			auto repEmployee = repositoryList->employee;
 
 			string managerId = currUser->id;
-			shared_ptr<Entities::Employee> employee(new Entities::Employee(name, managerId));
-			employee->setId(repEmployee->create(employee));
+			Entities::Employee employee(name, managerId);
+			employee.id = repEmployee->create(employee);
 
-			return shared_ptr<DTO::Employee>(new DTO::Employee(employee));
+			return make_shared<DTO::Employee>(employee);
 		}
 		
 		virtual vector<shared_ptr<DTO::Employee>> getAssistantList() override {
@@ -191,7 +191,7 @@ namespace BLL {
 
 			vector<shared_ptr<DTO::Employee>> result;
 			for (auto item : list) {
-				result.push_back(shared_ptr<DTO::Employee>(new DTO::Employee(item)));
+				result.push_back(make_shared<DTO::Employee>(*item));
 			}
 			return result;
 		}
@@ -205,7 +205,7 @@ namespace BLL {
 
 			if (employee->id == employeeId) {
 				employee->managerId = currUser->id;
-				repEmployee->update(employee);
+				repEmployee->update(*employee);
 				
 				return true;
 			}
@@ -226,7 +226,7 @@ namespace BLL {
 
 			vector<shared_ptr<DTO::TaskComment>> result;
 			for (auto item : list) {
-				result.push_back(shared_ptr<DTO::TaskComment>(new DTO::TaskComment(item)));
+				result.push_back(make_shared<DTO::TaskComment>(*item));
 			}
 			return result;
 		}

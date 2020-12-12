@@ -22,11 +22,11 @@ namespace DAL {
 				return shared_ptr<TaskComment>(new TaskComment(taskId, modifiedBy, modifiedAt, comment));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<TaskComment> item) override {
-				addField<oid>(doc, "_id", getOid(item->id));
-				addField<oid>(doc, "taskId", getOid(item->taskId));
-				addField<oid>(doc, "modifiedBy", getOid(item->modifiedBy));
-				addField<string>(doc, "comment", item->comment);
+			void setData(basicDoc& doc, TaskComment& item) override {
+				addField<oid>(doc, "_id", getOid(item.id));
+				addField<oid>(doc, "taskId", getOid(item.taskId));
+				addField<oid>(doc, "modifiedBy", getOid(item.modifiedBy));
+				addField<string>(doc, "comment", item.comment);
 			}
 			void setFilterTaskId(string taskId) {
 				filter = shared_ptr<value>(new value(document{}

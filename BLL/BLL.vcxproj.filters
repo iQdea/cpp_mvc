@@ -9,7 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BLL.h" />
     <ClInclude Include="Task.h">
       <Filter>DTO</Filter>
     </ClInclude>
@@ -45,10 +44,9 @@
     <ClInclude Include="Session.h">
       <Filter>DTO</Filter>
     </ClInclude>
+    <ClInclude Include="BLL.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Employer.cpp">
-      <Filter>DTO</Filter>
-    </ClCompile>
+    <ClCompile Include="BLL.cpp" />
   </ItemGroup>
 </Project>

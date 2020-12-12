@@ -4,17 +4,17 @@ namespace BLL {
 	namespace DTO {
 		class Task : public IEntity {
 		public:
-			Task(shared_ptr<Entities::Task> item) : IEntity(item->id) {
-				title = item->title;
+			Task(Entities::Task& item) : IEntity(item.id) {
+				title = item.title;
 				
-				createdBy = item->createdBy;
-				createdAt = item->createdAt;
+				createdBy = item.createdBy;
+				createdAt = item.createdAt;
 
-				lastModifiedAt = item->lastModifiedAt;
-				lastModifiedBy = item->lastModifiedBy;
+				lastModifiedAt = item.lastModifiedAt;
+				lastModifiedBy = item.lastModifiedBy;
 
-				assignedTo = item->assignedTo;
-				status = item->status;
+				assignedTo = item.assignedTo;
+				status = item.status;
 			}
 
 			string title;

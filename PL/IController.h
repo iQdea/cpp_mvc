@@ -9,7 +9,6 @@ namespace Controllers {
 		IController(BLL::SprintService* sprintService) {
 			this->sprintService = sprintService;
 		}
-		virtual ~IController() = 0;
 	protected:
 		BLL::SprintService* sprintService;
 	};

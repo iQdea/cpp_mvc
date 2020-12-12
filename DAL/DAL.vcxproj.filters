@@ -47,9 +47,6 @@
     <ClInclude Include="RepositoryList.h">
       <Filter>Mongo</Filter>
     </ClInclude>
-    <ClInclude Include="IRepositoryList.h">
-      <Filter>Infrastructure</Filter>
-    </ClInclude>
     <ClInclude Include="TaskRepository.h">
       <Filter>Mongo\Repository</Filter>
     </ClInclude>

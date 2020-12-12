@@ -22,11 +22,11 @@ namespace DAL {
 				return shared_ptr<TaskAssigned>(new TaskAssigned(id, taskId, modifiedBy, modifiedAt, assignedTo));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<TaskAssigned> item) override {
-				addField<oid>(doc, "_id", getOid(item->id));
-				addField<oid>(doc, "taskId", getOid(item->taskId));
-				addField<oid>(doc, "modifiedBy", getOid(item->modifiedBy));
-				addField<oid>(doc, "assignedTo", getOid(item->assignedTo));
+			void setData(basicDoc& doc, TaskAssigned& item) override {
+				addField<oid>(doc, "_id", getOid(item.id));
+				addField<oid>(doc, "taskId", getOid(item.taskId));
+				addField<oid>(doc, "modifiedBy", getOid(item.modifiedBy));
+				addField<oid>(doc, "assignedTo", getOid(item.assignedTo));
 			}
 		};
 	}

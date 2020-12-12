@@ -19,9 +19,9 @@ namespace DAL {
 				return shared_ptr<Session>(new Session(id, employeeId, taskId));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<Session> item) override {
-				addField<oid>(doc, "employeeId", getOid(item->employeeId));
-				addField<oid>(doc, "taskId", getOid(item->taskId));
+			void setData(basicDoc& doc, Session& item) override {
+				addField<oid>(doc, "employeeId", getOid(item.employeeId));
+				addField<oid>(doc, "taskId", getOid(item.taskId));
 			}
 
 			//void setSortNumberDesc() {

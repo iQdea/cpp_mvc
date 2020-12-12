@@ -8,7 +8,6 @@
 #include "Session.h"
 #include "Employee.h"
 #include "Connection.h"
-#include "IRepositoryList.h"
 #include "Repository.h"
 #include "RepositoryList.h"
 #include "TaskRepository.h"

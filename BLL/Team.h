@@ -4,9 +4,9 @@ namespace BLL {
 	namespace DTO {
 		class Team : public IEntity {
 		public:
-			Team(shared_ptr<Entities::Team> item) : IEntity(item->id) {
-				number = item->number;
-				leadId = item->leadId;
+			Team(Entities::Team& item) : IEntity(item.id) {
+				number = item.number;
+				leadId = item.leadId;
 			}
 
 			string number;

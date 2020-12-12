@@ -19,9 +19,9 @@ namespace DAL {
 				return shared_ptr<Team>(new Team(id, number, leadId));
 			}
 
-			void setData(basicDoc& doc, shared_ptr<Team> item) override {
-				addField<int>(doc, "number", item->number);
-				addField<oid>(doc, "leadId", getOid(item->leadId));
+			void setData(basicDoc& doc, Team& item) override {
+				addField<int>(doc, "number", item.number);
+				addField<oid>(doc, "leadId", getOid(item.leadId));
 			}
 
 			void setFilterNumber(int number) {

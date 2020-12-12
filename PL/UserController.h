@@ -1,9 +1,6 @@
 #pragma once
 #include "IController.h"
-#include <string>
 #include "ViewModels.h"
-
-using namespace std;
 
 namespace Controllers {
 	class UserController : public IController {

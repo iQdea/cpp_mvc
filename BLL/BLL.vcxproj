@@ -35,7 +35,7 @@
     <ClInclude Include="Team.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Employer.cpp" />
+    <ClCompile Include="BLL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.vcxproj">

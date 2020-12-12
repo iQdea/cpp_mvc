@@ -13,30 +13,6 @@
     <Filter Include="Controllers">
       <UniqueIdentifier>{a8612e9e-4a8e-4eca-82e7-486dac6fb749}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{dc68fa76-21ff-4ab4-a54a-2ddd84c06f49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression">
-      <UniqueIdentifier>{621ed28d-6530-4254-ae82-c07790c43fae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Zstandard">
-      <UniqueIdentifier>{92a5c480-bb32-4cd6-a7c8-d38cae1ea880}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Zstandard\lib">
-      <UniqueIdentifier>{f74805ea-5725-4bbf-a387-5045582e79a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Zstandard\lib\win">
-      <UniqueIdentifier>{ebee0a49-62e8-46fb-ac13-6cff3d3230d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Snappy">
-      <UniqueIdentifier>{c08aa37c-01ea-403e-90f3-7f0707a011b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Snappy\lib">
-      <UniqueIdentifier>{c8b3e394-241f-4a61-b5dc-7aa1ad3f9e0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Compression\Snappy\lib\win">
-      <UniqueIdentifier>{fc75c3ee-872c-4b12-880e-9bffae44c8f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ViewModels">
       <UniqueIdentifier>{ab25b566-76df-4b2e-a11f-bb0c4173d542}</UniqueIdentifier>
     </Filter>
@@ -76,17 +52,5 @@
     <ClInclude Include="SimplePocoHandler.h">
       <Filter>Socket</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Core\Compression\Zstandard\lib\win\libzstd.dll">
-      <Filter>Core\Compression\Zstandard\lib\win</Filter>
-    </None>
-    <None Include="Core\Compression\Snappy\lib\win\snappy64.dll">
-      <Filter>Core\Compression\Snappy\lib\win</Filter>
-    </None>
-    <None Include="Core\Compression\Snappy\lib\win\snappy32.dll">
-      <Filter>Core\Compression\Snappy\lib\win</Filter>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

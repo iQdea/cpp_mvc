@@ -7,12 +7,6 @@ namespace DAL {
 		IEntity() {}
 
 		IEntity(string id) {
-			setId(id);
-		}
-		string getId() {
-			return id;
-		}
-		void setId(string id) {
 			this->id = id;
 		}
 

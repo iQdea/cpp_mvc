@@ -1,5 +1,4 @@
 #pragma once
-#include "IRepositoryList.h"
 #include "Connection.h"
 #include "TaskRepository.h"
 #include "TaskAssignedRepository.h"
@@ -10,24 +9,19 @@
 
 namespace DAL {
 	namespace Mongo {
-		class RepositoryList { // : IRepositoryList<TaskRepository, EmployeeRepository> {
+		class RepositoryList {
 		public:
 			RepositoryList(string url) {
 				connection = shared_ptr<Connection>(new Connection(url));
-				task = shared_ptr<TaskRepository>(new TaskRepository(connection->db));
-				taskAssigned = shared_ptr<TaskAssignedRepository>(new TaskAssignedRepository(connection->db));
-				taskStatus = shared_ptr<TaskStatusRepository>(new TaskStatusRepository(connection->db));
-				taskComment = shared_ptr<TaskCommentRepository>(new TaskCommentRepository(connection->db));
-				employee = shared_ptr<EmployeeRepository>(new EmployeeRepository(connection->db));
-				session = shared_ptr<SessionRepository>(new SessionRepository(connection->db));
+				auto db = connection->db;
+				task = shared_ptr<TaskRepository>(new TaskRepository(db));
+				taskAssigned = shared_ptr<TaskAssignedRepository>(new TaskAssignedRepository(db));
+				taskStatus = shared_ptr<TaskStatusRepository>(new TaskStatusRepository(db));
+				taskComment = shared_ptr<TaskCommentRepository>(new TaskCommentRepository(db));
+				employee = shared_ptr<EmployeeRepository>(new EmployeeRepository(db));
+				session = shared_ptr<SessionRepository>(new SessionRepository(db));
 			}
 			
-			shared_ptr<TaskRepository> getTask() {
-				return task;
-			}
-			shared_ptr<EmployeeRepository> getEmployee() {
-				return employee;
-			}
 			shared_ptr<TaskCommentRepository> taskComment;
 			shared_ptr<TaskAssignedRepository> taskAssigned;
 			shared_ptr<TaskStatusRepository> taskStatus;
