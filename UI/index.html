@@ -36,8 +36,9 @@
 <body>
     <div class="box">
         <div>
-            <select id="action" size="20" style="width:200px">
+            <select id="action" size="27" style="width:200px">
                 <option value="user|login|%name">user login %name</option>
+                <option value="%sessionId|user|info">user info</option>
                 <option value="%sessionId|user|logout">user logout</option>
                 <option value="%sessionId|user|tree">user tree</option>
                 <option value="%sessionId|user|add|%name">user add %name</option>
@@ -45,9 +46,11 @@
                 <option value="%sessionId|user|manager|%employeeId">user manager %employeeId</option>
                 <option value="%sessionId|task|today">task today</option>
                 <option value="%sessionId|task|opened">task opened</option>
+                <option value="%sessionId|task|todo">task todo</option>
                 <option value="%sessionId|task|assigned">task assigned</option>
                 <option value="%sessionId|task|add|%title|%descr">task add %title %descr</option>
                 <option value="%sessionId|task|select|%taskId">task select %taskId</option>
+                <option value="%sessionId|task|info">task info</option>
                 <option value="%sessionId|task|assign">task assign</option>
                 <option value="%sessionId|task|assign|%employeeId">task assign %employeeId</option>
                 <option value="%sessionId|task|status|0">task status open</option>
@@ -56,6 +59,10 @@
                 <option value="%sessionId|task|comment|show">task comment show</option>
                 <option value="%sessionId|task|comment|add|%text">task comment add %text</option>
                 <option value="%sessionId|time|add|%hours">time add %hours</option>
+                <option value="%sessionId|report|sprint">report sprint</option>
+                <option value="%sessionId|report|daily">report daily</option>
+                <option value="%sessionId|report|put|%reportId|%text">report put %reportId %text</option>
+                <option value="%sessionId|report|ready|%reportId">report ready %reportId</option>
             </select>
         </div>
         <div class="params">
@@ -66,6 +73,10 @@
             <div class="param title">
                 <label for="title">Title</label>
                 <input id="title" />
+            </div>
+            <div class="param reportId">
+                <label for="reportId">Report ID</label>
+                <input id="reportId" />
             </div>
             <div class="param taskId">
                 <label for="taskId">Task ID</label>
@@ -111,6 +122,7 @@
             if (/\%text/.test(action)) $('.text').show();
             if (/\%taskId/.test(action)) $('.taskId').show();
             if (/\%hours/.test(action)) $('.hours').show();
+            if (/\%reportId/.test(action)) $('.reportId').show();
             $('.send').show();
         });
 
@@ -125,6 +137,7 @@
             message = message.replace('%text', $('#text').val());
             message = message.replace('%taskId', $('#taskId').val());
             message = message.replace('%hours', $('#hours').val());
+            message = message.replace('%reportId', $('#reportId').val());
             message = message.replace('%sessionId', sessionId);
             client.subscriptions['/temp-queue/temp'] = function (message) {
                 $('#debug').val(message.body);
