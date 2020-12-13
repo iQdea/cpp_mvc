@@ -34,6 +34,7 @@
     <ClInclude Include="TaskComment.h" />
     <ClInclude Include="TaskStatus.h" />
     <ClInclude Include="Team.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BLL.cpp" />

@@ -1,0 +1,161 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            grid-gap: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        input {
+            width: 200px;
+        }
+
+        textarea {
+            width: 400px;
+            height: 100px;
+        }
+
+        .params {
+            margin-top: -5px;
+        }
+
+        .param {
+            display: none;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div>
+            <select id="action" size="20" style="width:200px">
+                <option value="user|login|%name">user login %name</option>
+                <option value="%sessionId|user|logout">user logout</option>
+                <option value="%sessionId|user|tree">user tree</option>
+                <option value="%sessionId|user|add|%name">user add %name</option>
+                <option value="%sessionId|user|assistants">user assistants</option>
+                <option value="%sessionId|user|manager|%employeeId">user manager %employeeId</option>
+                <option value="%sessionId|task|today">task today</option>
+                <option value="%sessionId|task|opened">task opened</option>
+                <option value="%sessionId|task|assigned">task assigned</option>
+                <option value="%sessionId|task|add|%title|%descr">task add %title %descr</option>
+                <option value="%sessionId|task|select|%taskId">task select %taskId</option>
+                <option value="%sessionId|task|assign">task assign</option>
+                <option value="%sessionId|task|assign|%employeeId">task assign %employeeId</option>
+                <option value="%sessionId|task|status|0">task status open</option>
+                <option value="%sessionId|task|status|1">task status active</option>
+                <option value="%sessionId|task|status|2">task status resolved</option>
+                <option value="%sessionId|task|comment|show">task comment show</option>
+                <option value="%sessionId|task|comment|add|%text">task comment add %text</option>
+                <option value="%sessionId|time|add|%hours">time add %hours</option>
+            </select>
+        </div>
+        <div class="params">
+            <div class="param name">
+                <label for="name">Name</label>
+                <input id="name" />
+            </div>
+            <div class="param title">
+                <label for="title">Title</label>
+                <input id="title" />
+            </div>
+            <div class="param taskId">
+                <label for="taskId">Task ID</label>
+                <input id="taskId" />
+            </div>
+            <div class="param employeeId">
+                <label for="employeeId">Employee ID</label>
+                <input id="employeeId" />
+            </div>
+            <div class="param descr">
+                <label for="descr">Description</label>
+                <textarea id="descr"></textarea>
+            </div>
+            <div class="param text">
+                <label for="text">Text</label>
+                <textarea id="text"></textarea>
+            </div>
+            <div class="param hours">
+                <label for="hours">Hours</label>
+                <input id="hours" type="number" />
+            </div>
+            <button class="param send">Отправить</button>
+        </div>
+    </div>
+    <textarea id="debug" style="width:100%;height:200px;margin-top:10px;"></textarea>
+
+    <script>
+        const queue = '/amq/queue/rpc_queue';
+        const options = { 'reply-to': '/temp-queue/temp' };
+        let state = '';
+        let client;
+        let sessionId = localStorage.getItem('sessionId') || '';
+        let waitForAnswer = false;
+
+        $('.param').hide();
+        $('#action').on('change', function () {
+            $('.param').hide();
+            const action = $('#action').val();
+            if (/\%name/.test(action)) $('.name').show();
+            if (/\%employeeId/.test(action)) $('.employeeId').show();
+            if (/\%title/.test(action)) $('.title').show();
+            if (/\%descr/.test(action)) $('.descr').show();
+            if (/\%text/.test(action)) $('.text').show();
+            if (/\%taskId/.test(action)) $('.taskId').show();
+            if (/\%hours/.test(action)) $('.hours').show();
+            $('.send').show();
+        });
+
+        $('.send').on('click', function () {
+            if (waitForAnswer) return;
+            const action = $('#action').val();
+            let message = action;
+            message = message.replace('%name', $('#name').val());
+            message = message.replace('%employeeId', $('#employeeId').val());
+            message = message.replace('%title', $('#title').val());
+            message = message.replace('%descr', $('#descr').val());
+            message = message.replace('%text', $('#text').val());
+            message = message.replace('%taskId', $('#taskId').val());
+            message = message.replace('%hours', $('#hours').val());
+            message = message.replace('%sessionId', sessionId);
+            client.subscriptions['/temp-queue/temp'] = function (message) {
+                $('#debug').val(message.body);
+                const a = message.body.split('|');
+                if (/login/.test(action)) {
+                    const b = a[1].split(':');
+                    sessionId = b[1];
+                    localStorage.setItem('sessionId', sessionId);
+                }
+                if (/logout/.test(action)) {
+                    sessionId = '';
+                    localStorage.setItem('sessionId', sessionId);
+                }
+                waitForAnswer = false;
+            }
+            waitForAnswer = true;
+            client.send(queue, options, message);
+        });
+
+        $(document).ready(function () {
+            if (window.WebSocket) {
+                var ws = new WebSocket('ws://192.168.0.95:15674/ws');
+                client = Stomp.over(ws);
+                client.debug = function (str) {
+                    console.log(str);
+                };
+                client.connect('qdea', 'qdea12345', function (frame) {
+                    $('#debug').html('Connected');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

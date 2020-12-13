@@ -9,7 +9,11 @@ namespace ViewModel {
 
 		string str() {
 			stringstream ss;
-			ss << "employee:" << id << "<-" << name;
+			ss << "{" 
+				<< "\"type\":\"employee\","
+				<< "\"id\":\"" << id << "\","
+				<< "\"name\":\"" << name << "\""
+				<< "}";
 			return ss.str();
 		}
 

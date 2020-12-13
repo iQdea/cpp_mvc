@@ -1,6 +1,7 @@
 #pragma once
 #include "DTO.h"
 #include "DAL.h"
+#include "Tree.h"
 #include "ISprintService.h"
 
 namespace BLL {
@@ -262,6 +263,41 @@ namespace BLL {
 				result.push_back(make_shared<DTO::Employee>(*item));
 			}
 			return result;
+		}
+
+		void buildEmployeeTree(map<string, bool>& haveSeen, Tree<DTO::Employee>& tree, shared_ptr<DTO::Employee> root) {
+			auto repEmployee = repositoryList->employee;
+			tree.item = root;
+
+			repEmployee->setFilterManagerId(root->id);
+			auto list = repEmployee->findAll();
+
+			for (auto item : list) {
+				if (!haveSeen[item->id]) {
+					haveSeen[item->id] = true;
+					tree.children[item->id] = make_shared<Tree<DTO::Employee>>();
+					buildEmployeeTree(haveSeen, *tree.children[item->id], make_shared<DTO::Employee>(*item));
+				}
+			}
+		}
+
+		void getEmployeeListTree(Tree<DTO::Employee>& tree) override {
+			auto repEmployee = repositoryList->employee;
+
+			// search root of tree
+			auto root = currUser;
+			while (root->managerId != "") {
+				repEmployee->setFilterId(root->managerId);
+				auto item = repEmployee->findOne();
+				if (root->managerId == item->id) {
+					root = item;
+				}
+				else break;
+			}
+
+			map<string, bool> haveSeen;
+			haveSeen[root->id] = true;
+			buildEmployeeTree(haveSeen, tree, make_shared<DTO::Employee>(*root));
 		}
 
 		// Employer manager logic

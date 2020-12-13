@@ -41,7 +41,10 @@ public:
 					}
 				}
 				else if (parts[1] == "user") {
-					if (parts.size() == 3 && parts[2] == "logout") {
+					if (parts.size() == 3 && parts[2] == "tree") {
+						response += user->tree();						
+					}
+					else if (parts.size() == 3 && parts[2] == "logout") {
 						user->logout();
 						response = "success:true";
 					}

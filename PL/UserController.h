@@ -1,6 +1,7 @@
 #pragma once
 #include "IController.h"
 #include "ViewModels.h"
+#include <string>
 
 namespace Controllers {
 	class UserController : public IController {
@@ -14,6 +15,27 @@ namespace Controllers {
 		string login(string name) {
 			ViewModel::Session response(*sprintService->login(name));
 			return response.str();
+		}
+
+		string buildTree(Tree<DTO::Employee>& tree) {
+			ViewModel::Employee item(*tree.item);
+			string children;
+			children = "[";
+			for (auto i : tree.children) {
+				if (children != "[") {
+					children += ",";
+				}
+				children += buildTree(*i.second);
+			}
+			children += "]";
+			return "{\"item\":\"" + item.str() + "\",\"children\":\"" + children + "\"}";
+		}
+
+		string tree() {
+			Tree<DTO::Employee> tree;
+			sprintService->getEmployeeListTree(tree);
+
+			return buildTree(tree);
 		}
 
 		string add(string name) {

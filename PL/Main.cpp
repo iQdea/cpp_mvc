@@ -12,7 +12,7 @@ int main() {
 	DAL::Mongo::RepositoryList repositoryList(url);
 	BLL::SprintService sprintService(&repositoryList);
 	ControllerList controllerList(&sprintService);
-	SimplePocoHandler handler("192.168.0.59", 5672);
+	SimplePocoHandler handler("192.168.0.95", 5672);
 	AMQP::Connection connection(&handler, AMQP::Login("qdea", "qdea12345"), "/");
 	AMQP::Channel channel(&connection);
 
