@@ -13,6 +13,12 @@ namespace Controllers {
 			sprintService->auth(sessionId);
 		}
 
+		string info() {
+			DTO::Employee currUser = *sprintService->currUser;
+			ViewModel::Employee item(currUser);
+			return item.json();
+		}
+
 		string login(string name) {
 			ViewModel::Session response(*sprintService->login(name));
 			return response.str();

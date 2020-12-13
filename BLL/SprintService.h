@@ -63,6 +63,20 @@ namespace BLL {
 			}
 			return result;
 		}
+		vector<shared_ptr<DTO::Task>> getTodoTaskList() override {
+			auto repTask = repositoryList->task;
+
+			repTask->setFilterAssignedTo(currUser->id);
+
+			vector<shared_ptr<DTO::Task>> result;
+			auto list = repTask->findAll();
+			for (auto item : list) {
+				if (item->status != TaskStatusEnum::Resolved) {
+					result.push_back(make_shared<DTO::Task>(*item));
+				}
+			}
+			return result;
+		}
 		vector<shared_ptr<DTO::Task>> getAssignedTaskList() override {
 			auto repTask = repositoryList->task;
 

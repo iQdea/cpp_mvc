@@ -43,7 +43,10 @@ public:
 					}
 				}
 				else if (parts[1] == "user") {
-					if (parts.size() == 3 && parts[2] == "tree") {
+					if (parts.size() == 3 && parts[2] == "info") {
+						response = user->info();
+					}
+					else if (parts.size() == 3 && parts[2] == "tree") {
 						response += user->tree();						
 					}
 					else if (parts.size() == 3 && parts[2] == "logout") {
@@ -82,11 +85,17 @@ public:
 					else throw invalid_argument("Route not found");
 				}
 				else if (parts[1] == "task") {
-					if (parts.size() == 3 && parts[2] == "today") {
+					if (parts.size() == 3 && parts[2] == "info") {
+						response = task->info();
+					}
+					else if (parts.size() == 3 && parts[2] == "today") {
 						response += task->changesToday();
 					}
 					else if (parts.size() == 3 && parts[2] == "opened") {
 						response += task->opened();
+					}
+					else if (parts.size() == 3 && parts[2] == "todo") {
+						response += task->todo();
 					}
 					else if (parts.size() == 3 && parts[2] == "assigned") {
 						response += task->assigned();

@@ -13,6 +13,7 @@ namespace BLL {
 		virtual vector<shared_ptr<DTO::Task>> getUserTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getOpenedTaskList() = 0;
+		virtual vector<shared_ptr<DTO::Task>> getTodoTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getAssignedTaskList() = 0;
 		virtual vector<shared_ptr<DTO::TaskComment>> getCommentList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) = 0;

@@ -17,6 +17,16 @@ namespace ViewModel {
 			return ss.str();
 		}
 
+		string json() {
+			stringstream ss;
+			ss << "{"
+				<< "\"type\":\"employee\","
+				<< "\"id\":\"" << id << "\","
+				<< "\"name\":\"" << name << "\""
+				<< "}";
+			return ss.str();
+		}
+
 		string id;
 		string name;
 	};

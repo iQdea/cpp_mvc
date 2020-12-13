@@ -7,9 +7,17 @@ namespace Controllers {
 	public:
 		TaskController(SprintService* sprintService) : IController(sprintService) {}
 
+		string info() {
+			DTO::Task currTask = *sprintService->currTask;
+			if (currTask.id == "") {
+				throw invalid_argument("Task is not selected");
+			}
+			ViewModel::Task task(currTask);
+			return task.json();
+		}
 		string add(string title, string descr) {
-			ViewModel::Task response(*sprintService->addTask(title, descr));
-			return response.str();
+			ViewModel::Task task(*sprintService->addTask(title, descr));
+			return task.json();
 		}
 		string select(string id) {
 			ViewModel::Task response(*sprintService->selectTask(id));
@@ -58,6 +66,18 @@ namespace Controllers {
 		string assigned() {
 			string response = "";
 			auto list = sprintService->getAssignedTaskList();
+			for (auto item : list) {
+				ViewModel::Task task(*item);
+				if (response != "") {
+					response += "|";
+				}
+				response += task.str();
+			}
+			return response;
+		}
+		string todo() {
+			string response = "";
+			auto list = sprintService->getTodoTaskList();
 			for (auto item : list) {
 				ViewModel::Task task(*item);
 				if (response != "") {
