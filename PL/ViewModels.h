@@ -6,3 +6,4 @@
 #include "TaskAssigned.h"
 #include "TaskStatus.h"
 #include "TaskComment.h"
+#include "Report.h"

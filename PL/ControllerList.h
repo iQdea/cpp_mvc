@@ -2,6 +2,7 @@
 #include "Connection.h"
 #include "UserController.h"
 #include "TaskController.h"
+#include "ReportController.h"
 #include <sstream>
 
 using namespace std;
@@ -12,6 +13,7 @@ public:
 	ControllerList(SprintService* sprintService) {
 		user = make_shared<UserController>(sprintService);
 		task = make_shared<TaskController>(sprintService);
+		report = make_shared<ReportController>(sprintService);
 	}
 
 	string route(string request) {
@@ -58,6 +60,24 @@ public:
 					else if (parts.size() == 4 && parts[2] == "manager") {
 						string employeeId = parts[3];
 						response = user->manager(employeeId);
+					}
+					else throw invalid_argument("Route not found");
+				}
+				else if (parts[1] == "report") {
+					if (parts.size() == 3 && parts[2] == "daily") {
+						response = report->daily();
+					} 
+					else if (parts.size() == 3 && parts[2] == "sprint") {
+						response = report->sprint();
+					}
+					else if (parts.size() == 5 && parts[2] == "put") {
+						string reportId = parts[3];
+						string text = parts[4];
+						response = report->put(reportId, text);
+					}
+					else if (parts.size() == 4 && parts[2] == "ready") {
+						string reportId = parts[3];
+						response = report->ready(reportId);
 					}
 					else throw invalid_argument("Route not found");
 				}
@@ -121,4 +141,5 @@ public:
 
 	shared_ptr<UserController> user;
 	shared_ptr<TaskController> task;
+	shared_ptr<ReportController> report;
 };

@@ -379,12 +379,14 @@ namespace BLL {
 				}
 
 				bool ok = true;
-				try {
-					repReport->setFilterTypeCreatedByBetween(ReportTypeEnum::Sprint, currUser->id, sprintCreated, getTime());
-					auto report = repReport->findOne();
-					ok = false;
+				if (root->id != currUser->id) {
+					try {
+						repReport->setFilterTypeCreatedByBetween(ReportTypeEnum::Sprint, currUser->id, sprintCreated, getTime());
+						auto report = repReport->findOne();
+						ok = false;
+					}
+					catch (...) {}
 				}
-				catch (...) {}
 
 				if (ok) {
 					Entities::Report report(currUser->id, getTime(), ReportTypeEnum::Sprint);

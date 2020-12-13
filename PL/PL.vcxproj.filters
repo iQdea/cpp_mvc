@@ -55,5 +55,8 @@
     <ClInclude Include="Report.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="ReportController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

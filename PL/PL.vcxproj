@@ -161,6 +161,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="IController.h" />
     <ClInclude Include="Report.h" />
+    <ClInclude Include="ReportController.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SimplePocoHandler.h" />
     <ClInclude Include="Task.h" />

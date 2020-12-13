@@ -2,6 +2,7 @@
 #include "IController.h"
 #include "ViewModels.h"
 #include <string>
+using namespace std;
 
 namespace Controllers {
 	class UserController : public IController {
@@ -28,7 +29,7 @@ namespace Controllers {
 				children += buildTree(*i.second);
 			}
 			children += "]";
-			return "{\"item\":\"" + item.str() + "\",\"children\":\"" + children + "\"}";
+			return "{\"item\":" + item.str() + ",\"children\":" + children + "}";
 		}
 
 		string tree() {
