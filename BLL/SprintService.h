@@ -315,6 +315,28 @@ namespace BLL {
 		// Employer manager logic
 		bool setManager(string employeeId) override {
 			auto repEmployee = repositoryList->employee;
+			
+			auto root = currUser;
+
+			map<string, bool> haveSeen;
+			haveSeen[root->id] = true;
+
+			// Check that tree of employees will stay a tree
+			while (root->managerId != "" && !haveSeen[root->managerId]) {
+				haveSeen[root->managerId] = true;
+				repEmployee->setFilterId(root->managerId);
+				auto item = repEmployee->findOne();
+				if (root->managerId == item->id) {
+					root = item;
+				}
+				else break;
+			}
+
+			for (auto i : haveSeen) {
+				if (employeeId == i.first) {
+					throw invalid_argument("Can not set myself as a manager for this employee");
+				}
+			}
 
 			repEmployee->setFilterId(employeeId);
 			auto employee = repEmployee->findOne();
