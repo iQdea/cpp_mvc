@@ -106,12 +106,10 @@
     <script>
         const queue = '/amq/queue/rpc_queue';
         const options = { 'reply-to': '/temp-queue/temp' };
-        let state = '';
         let client;
         let sessionId = localStorage.getItem('sessionId') || '';
         let waitForAnswer = false;
 
-        $('.param').hide();
         $('#action').on('change', function () {
             $('.param').hide();
             const action = $('#action').val();
