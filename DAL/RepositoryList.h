@@ -6,6 +6,7 @@
 #include "TaskStatusRepository.h"
 #include "EmployeeRepository.h"
 #include "SessionRepository.h"
+#include "ReportRepository.h"
 
 namespace DAL {
 	namespace Mongo {
@@ -21,6 +22,7 @@ namespace DAL {
 				taskComment = make_shared<TaskCommentRepository>(db);
 				employee = make_shared<EmployeeRepository>(db);
 				session = make_shared<SessionRepository>(db);
+				report = make_shared<ReportRepository>(db);
 			}
 			
 			shared_ptr<TaskCommentRepository> taskComment;
@@ -30,6 +32,7 @@ namespace DAL {
 			shared_ptr<TaskRepository> task;
 			shared_ptr<EmployeeRepository> employee;
 			shared_ptr<SessionRepository> session;
+			shared_ptr<ReportRepository> report;
 		};
 	}
 }

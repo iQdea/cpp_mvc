@@ -5,15 +5,15 @@ namespace DAL {
 	namespace Entities {
 		class Report : public IEntity {
 		public:
-			Report(string text, string createdBy, time_t createdAt) : IEntity() {
-				this->text = text;
+			Report(string createdBy, time_t createdAt) : IEntity() {
 				this->createdBy = createdBy;
 				this->createdAt = createdAt;
 			};
-			Report(string id, string text, string createdBy, time_t createdAt) : IEntity(id) {
-				this->text = text;
+
+			Report(string createdBy, time_t createdAt, ReportTypeEnum type) : IEntity() {
 				this->createdBy = createdBy;
 				this->createdAt = createdAt;
+				this->type = type;
 			};
 
 			Report(string id, string text, string createdBy, time_t createdAt, ReportStatusEnum status,
@@ -26,7 +26,7 @@ namespace DAL {
 				this->lastModifiedAt = lastModifiedAt;
 			}
 
-			string text;
+			string text = "";
 			string createdBy;
 			time_t createdAt;
 

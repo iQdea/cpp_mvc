@@ -34,6 +34,11 @@ namespace BLL {
 		// Task comment logic
 		virtual shared_ptr<DTO::TaskComment> addComment(string comment) = 0;
 
+		virtual shared_ptr<DTO::Report> getDailyReport() = 0;
+		virtual shared_ptr<DTO::Report> getSprintReport() = 0;
+		virtual shared_ptr<DTO::Report> putReport(string reportId, string text) = 0;
+		virtual shared_ptr<DTO::Report> markReportReady(string reportId) = 0;
+
 		// Employer logic
 		virtual void auth(string sessionId) = 0;
 		virtual void logout() = 0;

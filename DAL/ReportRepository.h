@@ -32,6 +32,25 @@ namespace DAL {
 				addField<int>(doc, "type", (int)item.type);
 				addField<int>(doc, "lastModifiedAt", item.lastModifiedAt);
 			}
+
+			void setFilterTypeStatusCreatedBy(ReportTypeEnum type, ReportStatusEnum status, string createdBy) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "type" << (int)type
+					<< "status" << (int)status
+					<< "createdBy" << getOid(createdBy)
+					<< finalize));
+			}
+
+			void setFilterTypeCreatedByBetween(ReportTypeEnum type, string createdBy, time_t start, time_t end) {
+				filter = shared_ptr<value>(new value(document{}
+					<< "type" << (int) type
+					<< "createdBy" << getOid(createdBy)
+					<< "createdAt" << open_document
+					<< "$gte" << (int)start
+					<< "$lt" << (int)end
+					<< close_document
+					<< finalize));
+			}
 		};
 	}
 }
