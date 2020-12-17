@@ -90,19 +90,6 @@ namespace BLL {
 			return result;
 		}
 
-		vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) override {
-			vector<shared_ptr<DTO::Task>> result;
-			return result;
-		}
-		vector<shared_ptr<DTO::Task>> getTaskListModifiedBetween(time_t start, time_t end) override {
-			vector<shared_ptr<DTO::Task>> result;
-			return result;
-		}
-		vector<shared_ptr<DTO::Task>> getTaskListAssignedToAssistants() override {
-			vector<shared_ptr<DTO::Task>> result;
-			return result;
-		}
-
 		void getTaskListHistoryBetween(time_t start, time_t end,
 			vector<DTO::Task>& taskList,
 			vector<DTO::TaskStatus>& taskStatusList,

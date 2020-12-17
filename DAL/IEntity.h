@@ -2,7 +2,7 @@
 #include "common.h"
 
 namespace DAL {
-	class IEntity {
+	class IEntity abstract {
 	public:
 		IEntity() {}
 

@@ -4,7 +4,6 @@
 #include "TaskAssigned.h"
 #include "TaskStatus.h"
 #include "TaskComment.h"
-#include "Team.h"
 #include "Employee.h"
 #include "Session.h"
 #include "Report.h"
