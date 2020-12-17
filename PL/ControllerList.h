@@ -82,6 +82,10 @@ public:
 						string reportId = parts[3];
 						response = report->ready(reportId);
 					}
+					else if (parts.size() == 4 && parts[2] == "list") {
+						int type = stoi(parts[3]);
+						response = report->getList(type);
+					}
 					else throw invalid_argument("Route not found");
 				}
 				else if (parts[1] == "task") {

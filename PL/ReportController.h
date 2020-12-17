@@ -26,5 +26,21 @@ namespace Controllers {
 			ViewModel::Report report(*sprintService->markReportReady(id));
 			return report.json();
 		}
+
+		string getList(int type) {
+			vector<shared_ptr<DTO::Report>> list = sprintService->getReportList((ReportTypeEnum) type);
+
+			string response;
+			response = "[";
+			for (auto i : list) {
+				if (response != "[") {
+					response += ",";
+				}
+				ViewModel::Report item(*i);
+				response += item.json();
+			}
+			response += "]";
+			return response;
+		}
 	};
 }

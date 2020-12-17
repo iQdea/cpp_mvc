@@ -23,7 +23,6 @@ namespace BLL {
 
 			return make_shared<DTO::Task>(task);
 		}
-
 		shared_ptr<DTO::Task> selectTask(string id) override {
 			auto repTask = repositoryList->task;
 			auto repSession = repositoryList->session;
@@ -89,7 +88,6 @@ namespace BLL {
 			}
 			return result;
 		}
-
 		void getTaskListHistoryBetween(time_t start, time_t end,
 			vector<DTO::Task>& taskList,
 			vector<DTO::TaskStatus>& taskStatusList,
@@ -189,8 +187,25 @@ namespace BLL {
 
 			return make_shared<DTO::TaskComment>(taskComment);
 		}
+		virtual vector<shared_ptr<DTO::TaskComment>> getCommentList() override {
+			auto repTask = repositoryList->task;
+			auto repTaskComment = repositoryList->taskComment;
 
-		// Employer logic
+			if (currTask->id != currSession->taskId) {
+				throw invalid_argument("Task is not selected");
+			}
+
+			repTaskComment->setFilterTaskId(currTask->id);
+			auto list = repTaskComment->findAll();
+
+			vector<shared_ptr<DTO::TaskComment>> result;
+			for (auto item : list) {
+				result.push_back(make_shared<DTO::TaskComment>(*item));
+			}
+			return result;
+		}
+
+		// Employee and session logic
 		virtual void auth(string sessionId) {
 			auto repTask = repositoryList->task;
 			auto repEmployee = repositoryList->employee;
@@ -216,20 +231,11 @@ namespace BLL {
 				currTask = make_shared<Entities::Task>("", "", "", getTime());
 			}
 		}
-
 		virtual void logout() {
 			auto repSession = repositoryList->session;
 
 			repSession->remove(currSession->id);
 		}
-
-		virtual void addTime(float hours) {
-			auto repSession = repositoryList->session;
-
-			currSession->shiftHours += hours;
-			repSession->update(*currSession);
-		}
-
 		shared_ptr<DTO::Session> login(string name) override {
 			auto repEmployee = repositoryList->employee;
 			auto repSession = repositoryList->session;
@@ -242,7 +248,15 @@ namespace BLL {
 
 			return make_shared<DTO::Session>(session);
 		}
+		virtual void addTime(float hours) {
+			auto repSession = repositoryList->session;
 
+			currSession->shiftHours += hours;
+			repSession->update(*currSession);
+		}
+		time_t getTime() {
+			return time(0) + (int)(currSession->shiftHours * 3600);
+		}
 		shared_ptr<DTO::Employee> addAssistant(string name) override {
 			auto repEmployee = repositoryList->employee;
 
@@ -252,7 +266,6 @@ namespace BLL {
 
 			return make_shared<DTO::Employee>(employee);
 		}
-
 		virtual vector<shared_ptr<DTO::Employee>> getAssistantList() override {
 			auto repEmployee = repositoryList->employee;
 
@@ -265,7 +278,6 @@ namespace BLL {
 			}
 			return result;
 		}
-
 		void buildEmployeeTree(map<string, bool>& haveSeen, Tree<DTO::Employee>& tree, shared_ptr<DTO::Employee> root) {
 			auto repEmployee = repositoryList->employee;
 			tree.item = root;
@@ -281,7 +293,6 @@ namespace BLL {
 				}
 			}
 		}
-
 		shared_ptr<Entities::Employee> getTeamLead() {
 			auto repEmployee = repositoryList->employee;
 			auto root = currUser;
@@ -301,7 +312,6 @@ namespace BLL {
 
 			return root;
 		}
-
 		void getEmployeeListTree(Tree<DTO::Employee>& tree) override {
 			auto repEmployee = repositoryList->employee;
 
@@ -312,8 +322,6 @@ namespace BLL {
 
 			buildEmployeeTree(haveSeen, tree, make_shared<DTO::Employee>(*root));
 		}
-
-		// Employer manager logic
 		bool setManager(string employeeId) override {
 			auto repEmployee = repositoryList->employee;
 			
@@ -352,28 +360,7 @@ namespace BLL {
 			return false;
 		}
 
-		virtual vector<shared_ptr<DTO::TaskComment>> getCommentList() override {
-			auto repTask = repositoryList->task;
-			auto repTaskComment = repositoryList->taskComment;
-
-			if (currTask->id != currSession->taskId) {
-				throw invalid_argument("Task is not selected");
-			}
-
-			repTaskComment->setFilterTaskId(currTask->id);
-			auto list = repTaskComment->findAll();
-
-			vector<shared_ptr<DTO::TaskComment>> result;
-			for (auto item : list) {
-				result.push_back(make_shared<DTO::TaskComment>(*item));
-			}
-			return result;
-		}
-
-		time_t getTime() {
-			return time(0) + (int)(currSession->shiftHours * 3600);
-		}
-
+		// Report logic
 		shared_ptr<DTO::Report> getSprintReport() override {
 			auto repReport = repositoryList->report;
 
@@ -421,7 +408,6 @@ namespace BLL {
 				}				
 			}
 		}
-
 		shared_ptr<DTO::Report> getDailyReport() override {
 			time_t start;
 			time_t end;
@@ -441,7 +427,6 @@ namespace BLL {
 				return make_shared<DTO::Report>(report);
 			}
 		}
-
 		shared_ptr<DTO::Report> putReport(string reportId, string text) override {
 			auto repReport = repositoryList->report;
 			repReport->setFilterId(reportId);
@@ -458,7 +443,6 @@ namespace BLL {
 
 			return make_shared<DTO::Report>(*report);
 		}
-
 		shared_ptr<DTO::Report> markReportReady(string reportId) override {
 			auto repReport = repositoryList->report;
 			repReport->setFilterId(reportId);
@@ -475,7 +459,6 @@ namespace BLL {
 
 			return make_shared<DTO::Report>(*report);
 		}
-
 		vector<shared_ptr<DTO::Report>> getReportList(ReportTypeEnum type) {
 			auto repReport = repositoryList->report;
 
@@ -488,21 +471,26 @@ namespace BLL {
 				getToday(start, end);
 				for (auto item : list) {
 					repReport->setFilterTypeCreatedByBetween(type, item->id, start, end);
-					auto report = repReport->findOne();
-					result.push_back(make_shared<DTO::Report>(*report));
+					try {
+						auto report = repReport->findOne();
+						result.push_back(make_shared<DTO::Report>(*report));
+					}
+					catch (...) {}
 				}
 			}
 			else {
 				for (auto item : list) {
 					repReport->setFilterTypeStatusCreatedBy(ReportTypeEnum::Sprint, ReportStatusEnum::Draft, item->id);
-					auto report = repReport->findOne();
-					result.push_back(make_shared<DTO::Report>(*report));
+					try {
+						auto report = repReport->findOne();
+						result.push_back(make_shared<DTO::Report>(*report));
+					}
+					catch (...) {}
 				}
 			}
 
 			return result;
 		}
-
 		void getToday(time_t& start, time_t& end) {
 			time_t currTime = getTime();
 			struct tm t;

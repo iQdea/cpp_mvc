@@ -36,7 +36,7 @@
 <body>
     <div class="box">
         <div>
-            <select id="action" size="27" style="width:200px">
+            <select id="action" size="29" style="width:200px">
                 <option value="user|login|%name">user login %name</option>
                 <option value="%sessionId|user|info">user info</option>
                 <option value="%sessionId|user|logout">user logout</option>
@@ -63,6 +63,8 @@
                 <option value="%sessionId|report|daily">report daily</option>
                 <option value="%sessionId|report|put|%reportId|%text">report put %reportId %text</option>
                 <option value="%sessionId|report|ready|%reportId">report ready %reportId</option>
+                <option value="%sessionId|report|list|0">report list daily</option>
+                <option value="%sessionId|report|list|1">report list sprint</option>
             </select>
         </div>
         <div class="params">
