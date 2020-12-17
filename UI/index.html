@@ -138,6 +138,7 @@
             message = message.replace('%reportId', $('#reportId').val());
             message = message.replace('%sessionId', sessionId);
             client.subscriptions['/temp-queue/temp'] = function (message) {
+                waitForAnswer = false;
                 $('#debug').val(message.body);
                 const a = message.body.split('|');
                 if (/login/.test(action)) {
@@ -149,7 +150,6 @@
                     sessionId = '';
                     localStorage.setItem('sessionId', sessionId);
                 }
-                waitForAnswer = false;
             }
             waitForAnswer = true;
             client.send(queue, options, message);
