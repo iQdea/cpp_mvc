@@ -15,9 +15,6 @@
     <ClInclude Include="common.h">
       <Filter>DTO</Filter>
     </ClInclude>
-    <ClInclude Include="Team.h">
-      <Filter>DTO</Filter>
-    </ClInclude>
     <ClInclude Include="ISprintService.h">
       <Filter>Infrastructure</Filter>
     </ClInclude>

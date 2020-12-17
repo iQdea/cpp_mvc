@@ -29,9 +29,6 @@
     <ClInclude Include="TaskAssigned.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Team.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="IEntity.h">
       <Filter>Infrastructure</Filter>
     </ClInclude>
@@ -55,9 +52,6 @@
     </ClInclude>
     <ClInclude Include="Employee.h">
       <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="TeamRepository.h">
-      <Filter>Mongo\Repository</Filter>
     </ClInclude>
     <ClInclude Include="ITaskPart.h">
       <Filter>Infrastructure</Filter>

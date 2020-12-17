@@ -16,9 +16,6 @@ namespace BLL {
 		virtual vector<shared_ptr<DTO::Task>> getTodoTaskList() = 0;
 		virtual vector<shared_ptr<DTO::Task>> getAssignedTaskList() = 0;
 		virtual vector<shared_ptr<DTO::TaskComment>> getCommentList() = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListCreatedBetween(time_t start, time_t end) = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListModifiedBetween(time_t start, time_t end) = 0;
-		virtual vector<shared_ptr<DTO::Task>> getTaskListAssignedToAssistants() = 0;
 		virtual void getEmployeeListTree(Tree<DTO::Employee>& tree) = 0;
 		virtual void getTaskListHistoryBetween(time_t start, time_t end,
 			vector<DTO::Task>& taskList,
@@ -39,7 +36,7 @@ namespace BLL {
 		virtual shared_ptr<DTO::Report> getSprintReport() = 0;
 		virtual shared_ptr<DTO::Report> putReport(string reportId, string text) = 0;
 		virtual shared_ptr<DTO::Report> markReportReady(string reportId) = 0;
-
+		
 		// Employer logic
 		virtual void auth(string sessionId) = 0;
 		virtual void logout() = 0;

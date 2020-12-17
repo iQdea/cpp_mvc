@@ -169,13 +169,11 @@
     <ClInclude Include="TaskCommentRepository.h" />
     <ClInclude Include="TaskRepository.h" />
     <ClInclude Include="TaskStatusRepository.h" />
-    <ClInclude Include="Team.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="TaskAssigned.h" />
     <ClInclude Include="TaskComment.h" />
     <ClInclude Include="ITaskPart.h" />
     <ClInclude Include="TaskStatus.h" />
-    <ClInclude Include="TeamRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connection.cpp" />
